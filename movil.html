@@ -47,12 +47,14 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
 .hd h1 .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
 .sub{margin:3px 0 0;font-size:12px;color:var(--muted)}
 .hd .row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
-.iconbtn{margin-left:auto;background:var(--surface2);border:1px solid var(--line);color:var(--ink);
+.iconbtn{background:var(--surface2);border:1px solid var(--line);color:var(--ink);
   border-radius:9px;padding:6px 9px;font-size:14px;cursor:pointer;line-height:1}
+.gbtn{margin-left:auto;background:var(--accent);border:1px solid var(--accent);color:#fff;
+  border-radius:9px;padding:6px 10px;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;line-height:1;display:inline-flex;align-items:center;gap:5px}
 .search{flex:1 1 100%;background:var(--surface2);border:1px solid var(--line);color:var(--ink);
   border-radius:10px;padding:9px 11px;font-size:14px;outline:none}
 .search::placeholder{color:var(--muted)}
-.tabs{display:flex;gap:6px;flex:1 1 100%}
+.tabs{display:flex;gap:6px;flex:1 1 auto}
 .tab{flex:1;text-align:center;padding:8px 6px;border-radius:9px;border:1px solid var(--line);
   background:var(--surface2);color:var(--muted);font-weight:700;font-size:13px;cursor:pointer}
 .tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -60,6 +62,19 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
 .fchip{padding:5px 10px;border-radius:20px;border:1px solid var(--line);background:var(--surface);
   color:var(--muted);font-size:12px;font-weight:600;cursor:pointer}
 .fchip.on{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+/* date strip */
+.datewrap{flex:1 1 100%}
+.datestrip{display:flex;gap:6px;overflow-x:auto;padding:2px 0 4px;-webkit-overflow-scrolling:touch}
+.datestrip::-webkit-scrollbar{height:0}
+.dchip{flex:0 0 auto;min-width:52px;text-align:center;border:1px solid var(--line);background:var(--surface);
+  border-radius:11px;padding:6px 8px;cursor:pointer;color:var(--muted)}
+.dchip small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.3px}
+.dchip b{display:block;font-size:17px;line-height:1.1;color:var(--ink)}
+.dchip.on{background:var(--accent);border-color:var(--accent)}
+.dchip.on b,.dchip.on small{color:#fff}
+.dchip.today{border-color:var(--today);border-width:1.5px}
+.dchip .cnt{display:block;font-size:9.5px;color:var(--warn);font-weight:800;margin-top:1px}
+.dchip.on .cnt{color:#FDE9CE}
 .summary{max-width:640px;margin:10px auto 2px;padding:0 12px;display:flex;gap:8px;flex-wrap:wrap}
 .stat{flex:1;min-width:96px;background:var(--surface);border:1px solid var(--line);border-radius:12px;
   padding:9px 11px;box-shadow:var(--shadow)}
@@ -85,6 +100,7 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
 .pct{font-size:11px;color:var(--muted);margin:4px 0 8px;display:flex;justify-content:space-between}
 .ens{display:flex;flex-direction:column;gap:5px;margin-top:2px}
 .e{display:flex;align-items:center;gap:8px;font-size:13px}
+.e.hl{background:var(--plan-bg);border-radius:8px;padding:4px 6px;margin:0 -6px}
 .e .nm{flex:1;min-width:0}
 .e .st{flex:0 0 auto;font-size:11px;font-weight:800;padding:3px 8px;border-radius:7px;white-space:nowrap}
 .st-realizado{background:var(--done);color:#fff}
@@ -106,6 +122,23 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
 .nov[open] summary::before{content:"▾ "}
 .nov .body{font-size:12px;color:var(--ink);margin-top:6px;padding:7px 9px;background:var(--surface2);
   border-radius:9px;border:1px solid var(--line-soft)}
+/* agenda */
+.aghead{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 13px;
+  margin:10px 0;box-shadow:var(--shadow)}
+.aghead .d{font-size:16px;font-weight:800}
+.aghead .c{font-size:12.5px;color:var(--muted);margin-top:2px}
+.aggrp{margin:14px 0 4px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.agitem{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;
+  margin:8px 0;box-shadow:var(--shadow)}
+.agitem .t{display:flex;align-items:center;gap:8px}
+.agitem .t b{font-size:14.5px;font-weight:800}
+.agitem .t .badge{font-size:10px;padding:3px 8px}
+.agitem .d{font-size:11.5px;color:var(--muted);margin:2px 0 6px}
+.agtests{display:flex;flex-direction:column;gap:5px}
+.gcta{display:block;background:var(--accent);color:#fff;border-radius:12px;padding:12px 14px;margin:12px 0;
+  text-decoration:none;box-shadow:var(--shadow);font-weight:700;font-size:14px}
+.gcta small{display:block;font-weight:500;font-size:11.5px;opacity:.9;margin-top:2px}
+.gcta .arw{float:right;font-size:18px}
 .section-h{margin:22px 4px 2px;font-size:13px;font-weight:800;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.4px}
 .consulta{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--warn);
   border-radius:10px;padding:9px 11px;margin:8px 0;font-size:13px;box-shadow:var(--shadow)}
@@ -113,8 +146,6 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
 .foot{max-width:640px;margin:20px auto 0;padding:0 12px;font-size:11px;color:var(--muted);text-align:center}
 .foot a{color:var(--accent);font-weight:700;text-decoration:none}
 .empty{text-align:center;color:var(--muted);padding:30px 10px;font-size:13px}
-.desktop-link{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;
-  border-radius:10px;padding:8px 12px;font-size:13px;font-weight:700;text-decoration:none;margin-top:4px}
 </style>
 </head>
 <body>
@@ -126,13 +157,12 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
      <div class="tabs">
        <div class="tab on" data-tab="equipos">Equipos</div>
        <div class="tab" data-tab="canerias">Cañerías</div>
+       <div class="tab" data-tab="agenda">📅 Agenda</div>
      </div>
      <button class="iconbtn" id="theme" title="Tema">◐</button>
    </div>
-   <div class="row">
+   <div class="row" id="ctrlFiltros">
      <input class="search" id="q" placeholder="Buscar equipo, línea, ensayo…" autocomplete="off">
-   </div>
-   <div class="row">
      <div class="chips">
        <div class="fchip on" data-f="todos">Todos</div>
        <div class="fchip" data-f="abierto">Falta cerrar</div>
@@ -140,19 +170,22 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
        <div class="fchip" data-f="hoy">Con fecha</div>
      </div>
    </div>
+   <div class="row datewrap" id="ctrlFecha" hidden>
+     <div class="datestrip" id="datestrip"></div>
+   </div>
  </div>
 </header>
 
 <div class="summary" id="summary"></div>
 <div class="wrap"><div class="list" id="list"></div></div>
 
-<div class="wrap">
+<div class="wrap" id="consultasWrap">
   <div class="section-h">Consultas a Enzo</div>
   <div id="consultas"></div>
 </div>
 
 <div class="foot">
-  <a class="desktop-link" href="index.html">🖥️ Ver Gantt completo (escritorio)</a>
+  <a class="gcta" href="index.html" style="text-align:left"><span class="arw">→</span>🖥️ Abrir Gantt general<small>Ver el panorama completo de toda la parada</small></a>
   <p>Se actualiza a medida que avanza la obra. Última carga de datos: <span id="stamp"></span>.</p>
 </div>
 
@@ -168,7 +201,54 @@ let theme=null; try{theme=localStorage.getItem(LSK)}catch(e){}
 applyTheme(theme);
 $('#theme').onclick=()=>{ const cur=document.documentElement.getAttribute('data-theme');
   const nx = cur==='dark'?'light':(cur==='light'?null:'dark');
-  theme=nx; applyTheme(nx); try{nx?localStorage.setItem(LSK,nx):localStorage.removeItem(LSK)}catch(e){} };
+  applyTheme(nx); try{nx?localStorage.setItem(LSK,nx):localStorage.removeItem(LSK)}catch(e){} };
+
+/* ================= calendario / programación (idéntico al Gantt) ================= */
+const D0=new Date(2026,8,1), NDAYS=28, CORTE=new Date(2026,8,6);
+const NOWORK=new Set(["2026-09-05","2026-09-06"]);
+const _now=new Date();
+const HOY=new Date(_now.getFullYear(),_now.getMonth(),_now.getDate());
+const isoOf=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const isWknd=d=>d.getDay()===0||d.getDay()===6;
+function nextBiz(d){const x=new Date(d);while(isWknd(x)||NOWORK.has(isoOf(x)))x.setDate(x.getDate()+1);return x;}
+function addBiz(d,n){const x=new Date(d);let k=0;while(k<n){x.setDate(x.getDate()+1);if(!isWknd(x)&&!NOWORK.has(isoOf(x)))k++;}return x;}
+function parseDispo(raw){const m=(raw||"").match(/(\d{1,2})\s*\/\s*0?9/);return m?new Date(2026,8,parseInt(m[1],10)):null;}
+const isoDate=s=>s?new Date(s+"T00:00:00"):null;
+
+/* programa cada ensayo de un ítem → schedISO (pendientes) o doneISO (realizados) */
+function schedItem(it){
+  const e=DB.enzo[it.tag]||null;
+  const eLib=e&&e.lib_iso?isoDate(e.lib_iso):null;
+  const eE1 =e&&e.e1_iso ?isoDate(e.e1_iso ):null;
+  const eE2 =e&&e.e2_iso ?isoDate(e.e2_iso ):null;
+  const libD=parseDispo(it.liberacion);
+  const anchor=eLib||eE1||eE2||libD||null;
+  let cursor=nextBiz(new Date(Math.max(HOY-0, addBiz(CORTE,1)-0)));
+  const out={};
+  for(const [k,v] of Object.entries(it.ensayos)){
+    if(v.estado==='anulado'){ out[k]={schedISO:null,doneISO:null}; continue; }
+    if(v.estado==='realizado'){ const dd=parseDispo(v.raw); out[k]={schedISO:null,doneISO:dd?isoOf(dd):null}; continue; }
+    let start;
+    if(anchor){ const base=(anchor-0<HOY-0)?HOY:anchor; start=nextBiz(new Date(base)); }
+    else if(parseDispo(v.raw)){ const dp=parseDispo(v.raw); start=nextBiz(new Date(Math.max(dp-0,HOY-0))); }
+    else { start=new Date(cursor); cursor=addBiz(cursor,1); }
+    out[k]={schedISO:isoOf(start),doneISO:null};
+  }
+  return out;
+}
+/* precalcular para todos */
+[...DB.equipos,...DB.canerias].forEach(it=>{ it._sched=schedItem(it); });
+
+/* días hábiles del cronograma (para el selector) */
+function bizDays(){
+  const days=[]; for(let i=0;i<NDAYS;i++){const d=new Date(D0);d.setDate(d.getDate()+i);
+    if(!isWknd(d)&&!NOWORK.has(isoOf(d))) days.push(d);} return days;
+}
+/* cuántos ensayos pendientes tocan un día */
+function countDay(iso){
+  let n=0; [...DB.equipos,...DB.canerias].forEach(it=>{
+    for(const k in it._sched){ if(it._sched[k].schedISO===iso) n++; } }); return n;
+}
 
 /* ---------- helpers estado ---------- */
 const EST_LABEL={realizado:'Realizado',a_realizar:'A realizar',pendiente:'Pendiente',extra:'Adicional',anulado:'—'};
@@ -181,9 +261,7 @@ const COND={
  IP:['Informe previo','Requiere informe previo (IP)'],
  H:['Haulotte','Requiere Haulotte / plataforma (H)']
 };
-function reqEnsayos(it){ // ensayos que cuentan (excluye anulado)
-  return Object.entries(it.ensayos).filter(([k,v])=>v.estado!=='anulado');
-}
+function reqEnsayos(it){ return Object.entries(it.ensayos).filter(([k,v])=>v.estado!=='anulado'); }
 function pct(it){ const r=reqEnsayos(it); if(!r.length) return null;
   const done=r.filter(([k,v])=>v.estado==='realizado').length; return Math.round(done/r.length*100); }
 function estadoFecha(it){
@@ -195,52 +273,45 @@ function estadoFecha(it){
   if(done>0) return ['En curso','b-curso'];
   return ['Abierto','b-abierto'];
 }
-function fechaShort(piz){ const m=(piz||'').match(/(\d{2}\/\d{2})/); return m?m[1]:''; }
+function fechaShort(iso){ if(!iso) return ''; const p=iso.split('-'); return p[2]+'/'+p[1]; }
 function esc(s){ return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function reqNum(req){ return (req&&/\d/.test(req))?` <span style="color:var(--muted);font-size:11px">${esc(req.replace(/^X\s*/,''))}</span>`:''; }
 
-/* ---------- render tarjeta ---------- */
-function cardHTML(it){
+/* ---------- render tarjeta (Equipos/Cañerías) ---------- */
+function cardHTML(it, hlISO){
   const p=pct(it); const [ef,efc]=estadoFecha(it);
-  const done = ef==='Cerrado';
-  const enzo = DB.enzo[it.tag] || null;
+  const done=ef==='Cerrado'; const enzo=DB.enzo[it.tag]||null;
   let ens='';
   for(const [k,v] of Object.entries(it.ensayos)){
-    const fx = (v.estado==='a_realizar'||v.estado==='pendiente') ? fechaShort(v.piz) : '';
-    ens += `<div class="e"><span class="nm">${esc(k)}${v.req&&/\d/.test(v.req)?` <span style="color:var(--muted);font-size:11px">${esc(v.req.replace(/^X\s*/,''))}</span>`:''}</span>`
-        + (fx?`<span class="fx">${fx}</span>`:'')
-        + `<span class="st st-${v.estado}">${EST_LABEL[v.estado]}</span></div>`;
+    const sc=it._sched[k]||{}; const isHL=hlISO&&sc.schedISO===hlISO;
+    const fx=(v.estado==='a_realizar'||v.estado==='pendiente')?fechaShort(sc.schedISO):'';
+    ens+=`<div class="e${isHL?' hl':''}"><span class="nm">${esc(k)}${reqNum(v.req)}</span>`
+        +(fx?`<span class="fx">${fx}</span>`:'')
+        +`<span class="st st-${v.estado}">${EST_LABEL[v.estado]}</span></div>`;
   }
   let avisos='';
-  if(it.cond&&it.cond.length){
-    avisos='<div class="avisos">'+it.cond.map(c=>{const m=COND[c];return m?`<span class="av" title="${esc(m[1])}">${esc(m[0])}</span>`:`<span class="av">${esc(c)}</span>`}).join('')+'</div>';
-  }
+  if(it.cond&&it.cond.length) avisos='<div class="avisos">'+it.cond.map(c=>{const m=COND[c];return m?`<span class="av" title="${esc(m[1])}">${esc(m[0])}</span>`:`<span class="av">${esc(c)}</span>`}).join('')+'</div>';
   let note='';
-  if(enzo && (enzo.usable||enzo.nota)){
-    note=`<div class="note"><b>📅 ${esc(enzo.usable||'')}</b>${enzo.nota?`<br><span style="color:var(--muted)">${esc(enzo.nota)}</span>`:''}</div>`;
-  } else if(it.liberacion){
-    note=`<div class="note"><b>📅 Liberación:</b> ${esc(it.liberacion)}</div>`;
-  }
+  if(enzo&&(enzo.usable||enzo.nota)) note=`<div class="note"><b>📅 ${esc(enzo.usable||'')}</b>${enzo.nota?`<br><span style="color:var(--muted)">${esc(enzo.nota)}</span>`:''}</div>`;
+  else if(it.liberacion) note=`<div class="note"><b>📅 Liberación:</b> ${esc(it.liberacion)}</div>`;
   let nov='';
-  if(it.coment){ nov=`<details class="nov"><summary>Novedad / detalle</summary><div class="body">${esc(it.coment)}${it.alcance?`<br><br><b>Alcance:</b> ${esc(it.alcance)}`:''}</div></details>`; }
+  if(it.coment) nov=`<details class="nov"><summary>Novedad / detalle</summary><div class="body">${esc(it.coment)}${it.alcance?`<br><br><b>Alcance:</b> ${esc(it.alcance)}`:''}</div></details>`;
   return `<div class="card ${done?'done':''}">
     <div class="ctop"><span class="tag">${esc(it.tag)}</span><span class="badge ${efc}">${ef}</span></div>
     ${it.desc?`<div class="desc">${esc(it.desc)}</div>`:''}
     ${it.mat?`<div class="mat">${esc(it.mat)}</div>`:''}
     ${p!==null?`<div class="pct"><span>Avance</span><span>${p}%</span></div><div class="pbar"><i style="width:${p}%"></i></div>`:''}
-    <div class="ens">${ens}</div>
-    ${avisos}${note}${nov}
-  </div>`;
+    <div class="ens">${ens}</div>${avisos}${note}${nov}</div>`;
 }
 
 /* ---------- estado UI ---------- */
-let TAB='equipos', F='todos', Q='';
+let TAB='equipos', F='todos', Q='', DAY=null;
 function items(){ return TAB==='equipos'?DB.equipos:DB.canerias; }
 function matchF(it){
-  if(F==='todos') return true;
-  const [ef]=estadoFecha(it);
+  if(F==='todos') return true; const [ef]=estadoFecha(it);
   if(F==='cerrado') return ef==='Cerrado';
   if(F==='abierto') return ef!=='Cerrado';
-  if(F==='hoy'){ const e=DB.enzo[it.tag]; return !!(it.liberacion|| (e&&(e.usable||e.nota))); }
+  if(F==='hoy'){ const e=DB.enzo[it.tag]; return !!(it.liberacion||(e&&(e.usable||e.nota))); }
   return true;
 }
 function matchQ(it){
@@ -259,14 +330,83 @@ function renderSummary(){
     `<div class="stat"><b>${cerr}/${arr.length}</b><span>${TAB==='equipos'?'Equipos':'Cañerías'} cerrados</span></div>`+
     `<div class="stat"><b>${avg}%</b><span>Avance promedio</span></div>`;
 }
+
+/* ---------- Agenda por día ---------- */
+function agendaFor(iso){
+  const out=[];
+  [...DB.equipos,...DB.canerias].forEach(it=>{
+    const toca=[], hechos=[];
+    for(const [k,v] of Object.entries(it.ensayos)){
+      const sc=it._sched[k]||{};
+      if(sc.schedISO===iso) toca.push([k,v]);
+      if(sc.doneISO===iso) hechos.push([k,v]);
+    }
+    if(toca.length||hechos.length) out.push({it,toca,hechos});
+  });
+  return out;
+}
+function agItemHTML(o){
+  const it=o.it; const [ef,efc]=estadoFecha(it);
+  let rows='';
+  o.toca.forEach(([k,v])=>{ rows+=`<div class="e"><span class="nm">${esc(k)}${reqNum(v.req)}</span><span class="st st-${v.estado}">${EST_LABEL[v.estado]}</span></div>`; });
+  o.hechos.forEach(([k,v])=>{ rows+=`<div class="e"><span class="nm">${esc(k)}${reqNum(v.req)} <span style="color:var(--done);font-size:11px">✓ hecho</span></span><span class="st st-realizado">Realizado</span></div>`; });
+  let avisos='';
+  if(o.toca.length && it.cond&&it.cond.length) avisos='<div class="avisos">'+it.cond.map(c=>{const m=COND[c];return m?`<span class="av" title="${esc(m[1])}">${esc(m[0])}</span>`:''}).join('')+'</div>';
+  return `<div class="agitem"><div class="t"><b>${esc(it.tag)}</b><span class="badge ${efc}" style="margin-left:auto">${ef}</span></div>
+    ${it.desc?`<div class="d">${esc(it.desc)}</div>`:''}
+    <div class="agtests">${rows}</div>${avisos}</div>`;
+}
+function renderAgenda(){
+  const arr=agendaFor(DAY);
+  const nToca=arr.reduce((a,o)=>a+o.toca.length,0);
+  const nHechos=arr.reduce((a,o)=>a+o.hechos.length,0);
+  const dObj=isoDate(DAY);
+  const dTxt=dObj?dObj.toLocaleDateString('es-AR',{weekday:'long',day:'2-digit',month:'2-digit'}):DAY;
+  const conToca=arr.filter(o=>o.toca.length);
+  const conHechos=arr.filter(o=>!o.toca.length && o.hechos.length);
+  let html=`<a class="gcta" href="index.html"><span class="arw">→</span>🖥️ Abrir Gantt general<small>Ver el panorama completo de toda la parada</small></a>`;
+  html+=`<div class="aghead"><div class="d">${dTxt.charAt(0).toUpperCase()+dTxt.slice(1)}</div>
+    <div class="c"><b style="color:var(--warn)">${nToca}</b> ensayo(s) a realizar${nHechos?` · <b style="color:var(--done)">${nHechos}</b> ya realizado(s) ese día`:''}</div></div>`;
+  if(conToca.length){ html+='<div class="aggrp">A realizar este día</div>'+conToca.map(agItemHTML).join(''); }
+  else html+='<div class="empty">No hay ensayos programados para este día.</div>';
+  if(conHechos.length){ html+='<div class="aggrp">Realizados este día</div>'+conHechos.map(agItemHTML).join(''); }
+  $('#list').innerHTML=html;
+  $('#summary').innerHTML='';
+}
+function buildDateStrip(){
+  const days=bizDays(); const hoyIso=isoOf(HOY);
+  $('#datestrip').innerHTML=days.map(d=>{
+    const iso=isoOf(d); const n=countDay(iso);
+    const wd=d.toLocaleDateString('es-AR',{weekday:'short'}).replace('.','');
+    return `<div class="dchip${iso===DAY?' on':''}${iso===hoyIso?' today':''}" data-iso="${iso}">
+      <small>${wd}</small><b>${d.getDate()}</b>${n?`<span class="cnt">${n}</span>`:'<span class="cnt">&nbsp;</span>'}</div>`;
+  }).join('');
+  $('#datestrip').querySelectorAll('.dchip').forEach(c=>c.onclick=()=>{ DAY=c.dataset.iso; buildDateStrip(); renderAgenda();
+    const on=$('#datestrip').querySelector('.dchip.on'); if(on) on.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'}); });
+}
+function defaultDay(){
+  const hoyIso=isoOf(HOY); const days=bizDays().map(isoOf);
+  if(days.includes(hoyIso)) return hoyIso;
+  const nb=isoOf(nextBiz(HOY)); return days.includes(nb)?nb:days[0];
+}
+
+/* ---------- render principal ---------- */
 function render(){
+  if(TAB==='agenda'){
+    $('#ctrlFiltros').hidden=true; $('#ctrlFecha').hidden=false; $('#consultasWrap').hidden=true;
+    if(!DAY) DAY=defaultDay();
+    buildDateStrip(); renderAgenda();
+    const on=$('#datestrip').querySelector('.dchip.on'); if(on) on.scrollIntoView({inline:'center',block:'nearest'});
+    return;
+  }
+  $('#ctrlFiltros').hidden=false; $('#ctrlFecha').hidden=true; $('#consultasWrap').hidden=false;
   const arr=items().filter(it=>matchF(it)&&matchQ(it));
-  $('#list').innerHTML = arr.length? arr.map(cardHTML).join('') : '<div class="empty">No hay ítems con ese filtro.</div>';
+  $('#list').innerHTML=arr.length?arr.map(it=>cardHTML(it,null)).join(''):'<div class="empty">No hay ítems con ese filtro.</div>';
   renderSummary();
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on'); TAB=t.dataset.tab; render();
+  t.classList.add('on'); TAB=t.dataset.tab; window.scrollTo(0,0); render();
 });
 document.querySelectorAll('.fchip').forEach(c=>c.onclick=()=>{
   document.querySelectorAll('.fchip').forEach(x=>x.classList.remove('on'));
@@ -274,15 +414,10 @@ document.querySelectorAll('.fchip').forEach(c=>c.onclick=()=>{
 });
 $('#q').oninput=e=>{ Q=e.target.value.trim(); render(); };
 
-/* consultas */
-$('#consultas').innerHTML = DB.consultas.map(c=>
-  `<div class="consulta"><b>${esc(c.item)}</b> — ${esc(c.tema)}</div>`).join('') || '<div class="empty">Sin consultas pendientes.</div>';
-
-/* stamp */
-const hoy=new Date();
-$('#stamp').textContent = hoy.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
-$('#sub').textContent = 'Parada de planta · END · al '+hoy.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'});
-
+/* consultas + stamp */
+$('#consultas').innerHTML=DB.consultas.map(c=>`<div class="consulta"><b>${esc(c.item)}</b> — ${esc(c.tema)}</div>`).join('')||'<div class="empty">Sin consultas pendientes.</div>';
+$('#stamp').textContent=HOY.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
+$('#sub').textContent='Parada de planta · END · al '+HOY.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'});
 render();
 </script>
 </body>
