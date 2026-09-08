@@ -1,0 +1,3039 @@
+<title>Control END · PP2026 APASA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F4F6F4; --surface:#FFFFFF; --surface2:#EDF0EE; --ink:#1C2430; --muted:#5A6472;
+  --line:#D9DEE3; --line-soft:#E7EBEE; --accent:#2E5E9E; --accent-ink:#24497B;
+  --done:#2E7D46; --done-bg:#E3F1E7; --plan:#7A5F00; --plan-bg:#F6E7A8; --plan-bd:#C9A227;
+  --curso:#2E5E9E; --curso-bg:#E4ECF7;
+  --warn:#B96A00; --warn-bg:#F7ECDC; --extra:#7B4FA6; --extra-bg:#EFE7F7;
+  --danger:#C0392B; --today:#C0392B;
+  --wknd:rgba(28,36,48,.045); --shadow:0 1px 3px rgba(28,36,48,.08),0 4px 14px rgba(28,36,48,.06);
+  --chip-ink:#FFFFFF;
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161B; --surface:#1B2129; --surface2:#222A34; --ink:#E8ECF1; --muted:#97A2AE;
+    --line:#313A45; --line-soft:#28303A; --accent:#5B8ED0; --accent-ink:#82AEEF;
+    --done:#3E9861; --done-bg:#1E3327; --plan:#E3C86B; --plan-bg:#3A331C; --plan-bd:#A98F35;
+    --curso:#5B8ED0; --curso-bg:#1F2C3F;
+    --warn:#BB8430; --warn-bg:#37301E; --extra:#9A76C4; --extra-bg:#2E2639;
+    --danger:#D06456; --today:#D06456;
+    --wknd:rgba(232,236,241,.05); --shadow:0 1px 3px rgba(0,0,0,.4);
+    --chip-ink:#12161B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161B; --surface:#1B2129; --surface2:#222A34; --ink:#E8ECF1; --muted:#97A2AE;
+  --line:#313A45; --line-soft:#28303A; --accent:#5B8ED0; --accent-ink:#82AEEF;
+  --done:#3E9861; --done-bg:#1E3327; --plan:#E3C86B; --plan-bg:#3A331C; --plan-bd:#A98F35;
+  --curso:#5B8ED0; --curso-bg:#1F2C3F;
+  --warn:#BB8430; --warn-bg:#37301E; --extra:#9A76C4; --extra-bg:#2E2639;
+  --danger:#D06456; --today:#D06456;
+  --wknd:rgba(232,236,241,.05); --shadow:0 1px 3px rgba(0,0,0,.4);
+  --chip-ink:#12161B;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 "Source Sans 3",system-ui,Segoe UI,Roboto,sans-serif;margin:0;padding:0 0 64px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif;text-wrap:balance;margin:0}
+.mono{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace}
+
+/* header */
+header{border-bottom:2px solid var(--ink);background:var(--surface)}
+.hd{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between;padding:26px 0 18px}
+.brand{display:flex;flex-direction:column;gap:6px}
+.brand .lab{font-family:"Archivo";font-weight:800;letter-spacing:.14em;font-size:13px;color:var(--accent)}
+.brand h1{font-size:clamp(21px,3vw,30px);font-weight:700}
+.brand .sub{color:var(--muted);font-size:13.5px;max-width:70ch}
+.statuspill{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--warn);color:var(--warn);
+  background:var(--warn-bg);border-radius:999px;padding:7px 16px;font-family:"Archivo";font-weight:700;font-size:13px;letter-spacing:.06em;white-space:nowrap}
+.statuspill .dot{width:9px;height:9px;border-radius:50%;background:var(--warn)}
+.meta{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12.5px;padding-bottom:14px}
+.meta b{color:var(--ink);font-weight:600}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px 10px;box-shadow:var(--shadow)}
+.kpi .n{font-family:"Archivo";font-weight:800;font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .l{color:var(--muted);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;margin-top:3px}
+.kpi.gd .n{color:var(--done)} .kpi.pl .n{color:var(--plan)} .kpi.wr .n{color:var(--warn)} .kpi.ex .n{color:var(--extra)}
+
+/* resumen */
+.resumen{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:16px 20px;margin:0 0 22px;font-size:14.5px}
+.resumen b{font-weight:700}
+.eyebrow{font-family:"Archivo";font-weight:700;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+
+/* paneo general */
+.pan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.pan{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:11px 13px 12px;box-shadow:var(--shadow)}
+.pan .t{font-family:"Archivo";font-weight:700;font-size:12px;letter-spacing:.04em}
+.pan .n{font:700 18px "JetBrains Mono",monospace;margin:3px 0 6px;font-variant-numeric:tabular-nums}
+.pan .n small{font-size:12px;color:var(--muted);font-weight:400}
+.pbar{height:6px;background:var(--line-soft);border-radius:3px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--done);border-radius:3px}
+.pan-tot{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:10px}
+.pan-tot .pan{border-left:4px solid var(--accent)}
+.pan-tot .pan.total{border-left-color:var(--done);background:var(--done-bg)}
+.pan-tot .pbar{height:9px}
+.pan .sub{font-size:11.5px;color:var(--muted);margin-top:5px}
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 18px;position:sticky;top:0;z-index:30;
+  background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line-soft)}
+.filters input[type=search]{background:var(--surface);border:1px solid var(--line);border-radius:6px;color:var(--ink);
+  padding:7px 10px;font:13px "JetBrains Mono",monospace;width:160px}
+.fgroup{display:flex;gap:4px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:3px}
+.fgroup span{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:0 6px}
+.fbtn{border:0;background:transparent;color:var(--muted);font:600 12.5px "Source Sans 3",sans-serif;padding:5px 10px;border-radius:4px;cursor:pointer}
+.fbtn:hover{color:var(--ink)} .fbtn.on{background:var(--accent);color:#fff}
+.fbtn:focus-visible,.row-head:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+/* sections */
+section.blk{margin:30px 0}
+.fold{border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden}
+.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:13px 16px;font-family:"Archivo",sans-serif}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::before{content:"►";color:var(--accent);font-size:11px;margin-right:2px}
+.fold[open]>summary::before{content:"▼"}
+.fold>summary:hover{background:var(--surface2)}
+.fold>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.fold-h{font-weight:700;font-size:16px;color:var(--ink)}
+.fold-hint{font-family:"Source Sans 3",sans-serif;font-weight:400;font-size:12px;color:var(--muted)}
+.fold-body{padding:0 16px 16px}
+.gloss{font-size:12px;color:var(--muted);line-height:1.5;background:var(--surface2);border-radius:6px;padding:9px 12px}
+.gloss b{color:var(--ink)}
+.blk>h2{font-size:19px;font-weight:700;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:2px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.blk>h2 small{font-family:"Source Sans 3";font-weight:400;color:var(--muted);font-size:12.5px}
+
+/* gantt */
+.gantt{background:var(--surface);border:1px solid var(--line);border-radius:0 0 8px 8px;overflow:auto;max-height:74vh}
+.g-inner{min-width:1050px}
+.g-head,.g-row{display:grid;grid-template-columns:280px 1fr}
+.g-head{position:sticky;top:0;z-index:20;background:var(--surface2);border-bottom:2px solid var(--ink)}
+.g-head .lbl{padding:8px 12px;font-family:"Archivo";font-weight:700;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.axis{position:relative;height:34px}
+.axis .d{position:absolute;top:0;height:100%;border-left:1px solid var(--line-soft);font:10.5px "JetBrains Mono",monospace;color:var(--muted);padding:2px 0 0 3px}
+.axis .d.mon{color:var(--ink);font-weight:700}
+.grp{background:var(--surface2);border-top:1px solid var(--line);padding:6px 12px;font-family:"Archivo";font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink)}
+.g-row{border-top:1px solid var(--line-soft)}
+.g-row.done-row .tag{color:var(--done)}
+.g-row.done-row .row-head{background:var(--done-bg)}
+.row-head{padding:8px 12px;cursor:pointer;border-right:1px solid var(--line-soft);background:transparent}
+.row-head:hover{background:var(--surface2)}
+.tagline{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag{font:700 13px "JetBrains Mono",monospace;white-space:nowrap}
+.prog{font:11px "JetBrains Mono",monospace;color:var(--muted)}
+.mat{font:10.5px "JetBrains Mono",monospace;color:var(--muted);margin-top:3px;line-height:1.35}
+.ezrow{margin-top:6px;display:flex;flex-direction:column;gap:2px;border-left:3px solid var(--curso);padding:3px 0 3px 8px}
+.ezrow .ez-fecha{font:700 11.5px "Source Sans 3",sans-serif;color:var(--curso)}
+.ezrow .ez-fecha b{font-family:"JetBrains Mono",monospace}
+.ezrow .ez-nota{font-size:11px;color:var(--muted);line-height:1.35}
+.badge{font:700 9.5px "Archivo";letter-spacing:.06em;padding:1.5px 6px;border-radius:3px;white-space:nowrap}
+.badge.extra{background:var(--extra-bg);color:var(--extra)}
+.badge.full{background:var(--done);color:var(--chip-ink)}
+.badge.duda{background:var(--warn-bg);color:var(--warn)}
+.badge.ef-cerrado{background:var(--done);color:var(--chip-ink)}
+.badge.ef-encurso{background:var(--curso-bg);color:var(--curso);border:1px solid var(--curso)}
+.badge.ef-abierto{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.badge.ef-condicionado{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn)}
+.badge.ef-adicional{background:var(--extra-bg);color:var(--extra);border:1px solid var(--extra)}
+.chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.chip{font:600 10px "JetBrains Mono",monospace;padding:2px 6px;border-radius:3px;border:1px solid transparent;white-space:nowrap}
+.chip.st-realizado{background:var(--done);color:var(--chip-ink)}
+.chip.st-a_realizar{background:var(--plan-bg);color:var(--plan);border-color:var(--plan-bd)}
+.chip.st-pendiente{background:var(--warn-bg);color:var(--warn);border-color:var(--warn);border-style:dashed}
+.chip.st-extra{background:var(--extra-bg);color:var(--extra);border-color:var(--extra)}
+.tgls{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.tgl{font:700 10.5px "Archivo",sans-serif;letter-spacing:.04em;border-radius:4px;padding:3px 9px;cursor:pointer;border:1.5px solid transparent}
+.tgl.falta{background:var(--warn);color:var(--chip-ink);border-color:var(--warn)}
+.tgl.ok{background:transparent;color:var(--done);border-color:var(--done)}
+.tgl:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.badge.lib{background:var(--done-bg);color:var(--done);border:1.5px solid var(--done)}
+.badge.bloq{background:var(--warn-bg);color:var(--warn);border:1px dashed var(--warn)}
+.badge.enzo-usar{background:var(--curso-bg);color:var(--curso);border:1px solid var(--curso)}
+.badge.enzo-parcial{background:var(--surface2);color:var(--muted);border:1px solid var(--line)}
+.badge.enzo-revisar{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn)}
+.bar.enzo{border-style:dashed!important;opacity:.92}
+.conds{display:flex;gap:3px;margin-left:auto}
+.cond{font:700 9.5px "Archivo";color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:1px 4px;background:var(--surface)}
+.cond.hot{color:var(--warn);border-color:var(--warn)}
+.lane{position:relative;min-height:46px}
+.lane .wk{position:absolute;top:0;bottom:0;background:var(--wknd)}
+.lane .nowork{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,rgba(120,130,145,.18),rgba(120,130,145,.18) 6px,rgba(120,130,145,.10) 6px,rgba(120,130,145,.10) 12px)}
+.axis .d.nowork-h{color:var(--muted);text-decoration:line-through;background:rgba(120,130,145,.12)}
+.lane .dl{position:absolute;top:0;bottom:0;border-left:1px solid var(--line-soft)}
+.lane .today{position:absolute;top:0;bottom:0;border-left:2px solid var(--today);z-index:3}
+.lane .hoy{position:absolute;top:0;bottom:0;border-left:2px solid var(--done);z-index:3}
+.bar{position:absolute;height:16px;border-radius:4px;font:600 9.5px "JetBrains Mono",monospace;display:flex;align-items:center;
+  padding:0 5px;white-space:nowrap;cursor:default;z-index:4;overflow:hidden}
+.bar.st-realizado{background:var(--done);color:var(--chip-ink)}
+.bar.st-a_realizar{background:var(--plan-bg);color:var(--plan);border:1px solid var(--plan-bd)}
+.bar.st-pendiente{background:transparent;color:var(--warn);border:1.5px dashed var(--warn)}
+.bar.st-extra{background:var(--extra);color:#fff}
+.today-lbl{position:absolute;top:2px;font:700 9px "Archivo";color:var(--today);letter-spacing:.06em;padding-left:4px;z-index:3}
+.libmark{position:absolute;top:15px;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);background:var(--muted);border:1.5px solid var(--surface);z-index:6;cursor:default;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+
+/* detail */
+.detail{grid-column:1/-1;display:none;background:var(--surface2);border-top:1px dashed var(--line);padding:12px 16px;font-size:13.5px}
+.detail.open{display:block}
+.detail .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 24px}
+.detail h4{font-family:"Archivo";font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 3px}
+.detail p{margin:0 0 8px}
+
+/* tables */
+table{border-collapse:collapse;width:100%;background:var(--surface);font-size:13.5px}
+th{font-family:"Archivo";font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:2px solid var(--ink)}
+td{padding:8px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:0 0 8px 8px}
+td .tag{font-size:12px}
+.duda-n{font:700 12px "JetBrains Mono",monospace;color:var(--warn)}
+
+/* legend & footer */
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-size:12.5px;color:var(--muted);margin-top:26px}
+.legend .sw{display:inline-block;width:14px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:6px}
+footer{color:var(--muted);font-size:12px;margin-top:26px;border-top:1px solid var(--line);padding-top:12px}
+.tooltip{position:fixed;z-index:99;background:var(--ink);color:var(--bg);padding:8px 11px;border-radius:6px;font-size:12px;max-width:340px;pointer-events:none;display:none;box-shadow:var(--shadow)}
+.tooltip .t{font:700 12px "JetBrains Mono",monospace;margin-bottom:2px}
+@media print{.filters{display:none}.gantt{overflow:visible}.g-inner{min-width:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="tooltip" id="tt"></div>
+<header>
+  <div class="wrap">
+    <div class="hd">
+      <div class="brand">
+        <span class="lab">LABTESA · SERVICIO DE END</span>
+        <h1>Control de ejecución END — Parada de Planta 2026</h1>
+        <span class="sub">Austin Powder Argentina S.A. (APASA) · Planta El Juramento · Pliego 90-PCO-RQ-009 Rev.1 · Equipos estáticos y cañerías</span>
+      </div>
+      <div class="statuspill"><span class="dot"></span><span id="pillTxt">EN EJECUCIÓN</span></div>
+    </div>
+    <div class="meta">
+      <span>Actualizado: <b id="updDate">—</b></span>
+      <span>Datos base: pizarras 06/09 + novedades al día</span>
+      <span>Ventana de parada: <b>02/09 – 28/09</b> · L a V, 7:30–16:30 (ext. 19:30)</span>
+      <span id="dbState"></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="kpis" id="kpis"></div>
+
+  <div class="resumen">
+    <p class="eyebrow">Resumen ejecutivo</p>
+    <p id="resumenTxt" style="margin:0"></p>
+  </div>
+
+  <section class="blk" style="margin-top:24px">
+    <h2>Paneo general <small>ensayos realizados sobre el total requerido por pliego — no incluye los adicionales a cotizar</small></h2>
+    <div class="pan-grid" id="panTec"></div>
+    <div class="pan-tot" id="panTot"></div>
+  </section>
+
+  <div class="filters" id="filters">
+    <input type="search" id="q" placeholder="Buscar TAG…" aria-label="Buscar TAG">
+    <div class="fgroup" id="fArea"><span>Área</span></div>
+    <div class="fgroup" id="fEstado"><span>Estado</span></div>
+    <div class="fgroup" id="fCond"><span>Condición</span></div>
+  </div>
+
+  <section class="blk">
+    <h2>Equipos <small id="cntEq"></small></h2>
+    <div class="gantt"><div class="g-inner" id="gEq"></div></div>
+  </section>
+
+  <section class="blk">
+    <h2>Cañerías <small id="cntCa"></small></h2>
+    <div class="gantt"><div class="g-inner" id="gCa"></div></div>
+  </section>
+
+  <section class="blk">
+    <details class="fold">
+      <summary>
+        <span class="fold-h">Cruce con el cronograma de Enzo</span>
+        <span class="fold-hint">desglose de fechas LABTESA + INGYSOL — tocar para desplegar</span>
+      </summary>
+      <div class="fold-body">
+        <div class="gloss">
+          <b>Liberación:</b> fecha en que APASA libera/entrega el equipo limpio para empezar a ensayar. ·
+          <b>Etapa 1:</b> 1ª pasada de Enzo (ensayos de superficie: VT, réplicas, LP, indentación). ·
+          <b>Etapa 2:</b> 2ª pasada (volumétricos RT/UT, o el interior ya abierto). ·
+          <b>INGYSOL:</b> contratista mecánica que abre/desarma el equipo — sus internas dependen de esa apertura.
+        </div>
+        <div class="pan-grid" id="cruceKpis" style="margin:12px 0"></div>
+        <div class="tbl-wrap"><table id="tCruce"></table></div>
+      </div>
+    </details>
+  </section>
+
+  <section class="blk">
+    <h2>Condiciones a gestionar <small>frentes que dependen de andamios, aislación, pintura, aperturas y permisos</small></h2>
+    <div class="tbl-wrap"><table id="tCond"></table></div>
+  </section>
+
+  <section class="blk">
+    <h2>Consultas a definir con el usuario técnico (Enzo) <small>registrar acá cada respuesta — actualizado al 06/09</small></h2>
+    <div class="tbl-wrap"><table id="tEnzo"></table></div>
+  </section>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--done)"></span><b>Realizado</b> (✔✔ en pizarra)</span>
+    <span><span class="sw" style="background:var(--plan-bg);border:1px solid var(--plan-bd)"></span><b>A realizar</b> (✔ programado; barra = fecha tentativa)</span>
+    <span><span class="sw" style="border:1.5px dashed var(--warn);background:transparent"></span><b>Pendiente / a confirmar</b> (sin marca o con dudas)</span>
+    <span><span class="sw" style="background:var(--extra)"></span><b>Adicional a cotizar</b> (fuera de pliego)</span>
+    <span><span class="sw" style="width:11px;height:11px;background:var(--muted);transform:rotate(45deg);border-radius:1px"></span> Liberación del frente (rombo gris, en su fecha)</span>
+    <span><span class="sw" style="border-left:2px solid var(--today);background:transparent;width:4px"></span>Base pizarras 06/09 · <span class="sw" style="border-left:2px solid var(--done);background:transparent;width:4px"></span>HOY (línea verde, se mueve sola cada día)</span>
+    <span><b>Estado a la fecha:</b> Cerrado (100% realizado) · En curso · Abierto (sin avance) · Condicionado (con dudas/«VER») · Adicional</span>
+    <span><b>Avisos:</b> As = avisar cuando esté sin aislación · AN = andamio listo · P = definir si se hace LP sobre pintura · EC = permiso de espacio confinado</span>
+    <span><b>Botones de frente:</b> tocá «Falta andamio» / «Falta quitar aislación» para marcarlos resueltos. Cuando TODOS los bloqueos de un ítem están resueltos, el frente pasa a LIBERADO (si tiene ambos, hay que desactivar ambos). El estado se guarda en el dispositivo desde el que lo marcás.</span>
+    <span><b>Barras punteadas</b> = fecha tomada del cronograma de Enzo · <b>ENZO ✓ / parc. / ⚠</b> junto al TAG = cruce con su cronograma (ver sección «Cruce con el cronograma de Enzo»).</span>
+  </div>
+
+  <footer>
+    Base de datos: pliego 90-PCO-RQ-009 Rev.1 (05/08/26) + pizarras de obra (06/09) + cronograma de Enzo (LABTESA/INGYSOL) + novedades de obra cargadas al día.
+    El rombo gris marca la <b>liberación del frente</b> en su fecha; las barras de ensayo caen sobre la fecha de trabajo (punteadas = tomadas del cronograma de Enzo). La línea <b>HOY</b> se reposiciona sola cada día.
+    Elaborado por Labtesa — actualización diaria durante la parada.
+  </footer>
+</div>
+
+<script>
+const DB = {
+ "equipos": [
+  {
+   "tipo": "equipo",
+   "area": "10",
+   "tag": "10-BO-156",
+   "desc": "Caldera de enfriamiento de gas de cola",
+   "mat": "Cabezal SA-312 TP347 + SA-516 Gr.70; carcasa/domo SA-212 Gr.B (A.C.)",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔ –",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X",
+     "piz": "Realizado (08/09)",
+     "raw": "✔✔ 08/09",
+     "estado": "realizado"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (9 pts)",
+     "piz": "Realizado (08/09)",
+     "raw": "✔✔ 08/09",
+     "estado": "realizado"
+    },
+    "LP/PM": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    }
+   },
+   "liberacion": "07/09",
+   "cond": [],
+   "coment": "NOVEDAD 08/09: se terminaron las RÉPLICAS y la INSPECCIÓN VISUAL INTERNA → equipo CERRADO. (Aislación ya estaba retirada.)",
+   "alcance": "VT ext: CUI c/retiro de aislación en zonas críticas. VT int: apertura handholes y cabezales (videoscopio del cliente). PT/MT: 100% boquillas de caldera y domo. RM 9 pts: cabezal ingreso 2, carcasa 3, cabezal salida 2, domo 2 (repetir puntos de inspecciones anteriores).",
+   "completo": true,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "10",
+   "tag": "10-CL-202",
+   "desc": "Columna de absorción",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X",
+     "piz": "Realizado (Video)",
+     "raw": "Video ✔✔",
+     "estado": "realizado"
+    },
+    "LP/PM": {
+     "req": "X (12 conex.)",
+     "piz": "A realizar (E.C.)",
+     "raw": "✔ E.C.",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "04/09",
+   "cond": [
+    "Ap",
+    "H",
+    "IP"
+   ],
+   "coment": "IP; H; coordinar c/pliego de Marian; Ap · NOVEDAD 06/09: Enzo debe pasar el video de la inspección interna · LP faltantes: preguntar a Enzo dónde se hacen las restantes.",
+   "alcance": "VT int: retiro de 11 tapones de inspección (videoscopio del cliente) + VT de flexibles de coils. PT: 100% uniones soldadas de conexiones de envolvente: 6×2\", 1×3\", 3×4\", 2×10\".",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "10",
+   "tag": "10-E-001 A y B",
+   "desc": "Interenfriador de 1ª y 2ª etapa",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X (spot)",
+     "piz": "Realizado (SPOT (x2) 08/09)",
+     "raw": "SPOT ✔✔ (x2) 08/09",
+     "estado": "realizado"
+    }
+   },
+   "liberacion": "07/09",
+   "cond": [
+    "Ap"
+   ],
+   "coment": "Ap; VT int antes y después de la limpieza · NOVEDAD 08/09: se realizó la INSPECCIÓN VISUAL INTERNA (A y B) → equipo CERRADO.",
+   "alcance": "VT int por apertura de cabezales, videoscopio, DOS etapas obligatorias: previa al lavado del mazo y posterior al lavado. Muestreo aleatorio (spot) en campo.",
+   "completo": true,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "10",
+   "tag": "10-E-150",
+   "desc": "Calentador de aire",
+   "mat": "Inox. SA-240 TP321",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X",
+     "piz": "A realizar (evaluar acceso c/Enzo)",
+     "raw": "✔ evaluar acceso c/Enzo",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (2 pts)",
+     "piz": "Realizado (rehechas 08/09)",
+     "raw": "✔✔ rehechas 08/09",
+     "estado": "realizado"
+    },
+    "LP/PM": {
+     "req": "X (conex.+junta exp.)",
+     "piz": "A realizar (conex hechas; falta junta exp.)",
+     "raw": "✔ conex hechas; falta junta exp.",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "03/09",
+   "cond": [
+    "Ap",
+    "As"
+   ],
+   "coment": "Ap; As; trabaja tensionado · NOVEDAD 08/09: réplicas ya hechas. Pendientes: VT INTERNA (evaluar con Enzo por dónde se hace) y TINTAS (LP) en la junta de expansión.",
+   "alcance": "Acceso a VT int por retiro físico del 10-E-163. PT: 3 conexiones (1×6\", 1×10\", 1×12\") + junta de expansión. RM: 2 pts, aguas arriba y abajo de la junta de expansión.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "10",
+   "tag": "10-E-162",
+   "desc": "Supercalentador de amoníaco",
+   "mat": "SA-106 Gr.B (A.C. ferrítico)",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "(X) tapones",
+     "piz": "A realizar (Video +)",
+     "raw": "Video + ✔",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "ANUL. (pintado)",
+     "piz": "No se hace — pintado (def. Enzo)",
+     "raw": "No se hace — pintado (def. Enzo)",
+     "estado": "anulado"
+    }
+   },
+   "liberacion": "04/09",
+   "cond": [
+    "Ap",
+    "As",
+    "P"
+   ],
+   "coment": "Ap; As; sacar tapón p/VT int · NOVEDAD 08/09: Enzo debe pasar el video de la VT interna. TINTAS (LP): NO SE HACEN, el equipo está pintado (definido con Enzo).",
+   "alcance": "Rev.1: VT int sujeta a apertura de tapones (NO se retira cabezal). PT/PM 100% de conexiones: 2×2\" y 2×3\". Lado tubos anulado.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "10",
+   "tag": "10-E-165",
+   "desc": "Eliminador de aceite",
+   "mat": "SA-106 Gr.B / cabezal SA-234 WPB",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "ANUL.",
+     "piz": "No existe tapón",
+     "raw": "No existe tapón",
+     "estado": "anulado"
+    },
+    "LP/PM": {
+     "req": "ANUL. (pintado)",
+     "piz": "No se hace conexiones — pintado (def. Enzo)",
+     "raw": "No se hace conexiones — pintado (def. Enzo)",
+     "estado": "anulado"
+    },
+    "UT": {
+     "req": "X (soldaduras)",
+     "piz": "A realizar (UT pedido por Enzo)",
+     "raw": "✔ UT pedido por Enzo",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "As",
+    "P"
+   ],
+   "coment": "As; P · NOVEDAD 08/09: VT interna descartada (no existe tapón, def. Enzo). TINTAS (LP) en conexiones NO SE HACEN, equipo pintado (def. Enzo). AGREGADO: UT en las soldaduras a pedido de Enzo.",
+   "alcance": "Rev.1: se descarta inspección interna (no apertura de cabezales). VT ext: estado de aislación térmica y sellos. LP de conexiones anulado (pintado). AGREGADO por Enzo: UT en soldaduras.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "10",
+   "tag": "10-E-168",
+   "desc": "Calentador de amoníaco",
+   "mat": "SA-106 Gr.B / cabezal SA-285 Gr.C / bridas SA-181",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar (05/09 (este finde))",
+     "raw": "05/09 ✔ (este finde)",
+     "estado": "a_realizar"
+    },
+    "VT int": {
+     "req": "ANUL.",
+     "piz": "",
+     "raw": "",
+     "estado": "anulado"
+    },
+    "LP/PM": {
+     "req": "X (4 boq.+bridas)",
+     "piz": "A realizar (P a confirmar)",
+     "raw": "✔ P a confirmar",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "As",
+    "P"
+   ],
+   "coment": "As; P · NOVEDAD 06/09: la VT externa se realiza este fin de semana. LP a confirmar: el equipo está PINTADO.",
+   "alcance": "Rev.1: se descarta insp. interna. VT ext: retiro de aislación (posiblemente parcial, casquetes) buscando CUI. PT/MT: boquillas 1×2\", 2×3\", 1×4\" + uniones soldadas de bridas de cabezales 24\".",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "10",
+   "tag": "10-TK-251 A y B",
+   "desc": "Tanques de almacenamiento de ácido nítrico",
+   "mat": "Suelo SA-240 TP304L, ¼\", juntas solapadas 38 mm",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar (05/09)",
+     "raw": "05/09 ✔",
+     "estado": "a_realizar"
+    },
+    "VT int": {
+     "req": "X (EC)",
+     "piz": "A realizar (interior)",
+     "raw": "✔ interior",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (4+2 pts)",
+     "piz": "A realizar (EC interior)",
+     "raw": "✔ EC interior",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X",
+     "piz": "A realizar (interior)",
+     "raw": "✔ interior",
+     "estado": "a_realizar"
+    },
+    "UT": {
+     "req": "X (spot fondo)",
+     "piz": "A realizar (interior)",
+     "raw": "✔ interior",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "05/09",
+   "cond": [
+    "AN",
+    "Ap",
+    "As",
+    "EC"
+   ],
+   "coment": "AN; tuvo un evento que afectó la junta de exp. → VT ext; As · NOVEDAD 06/09: hay que ABRIR el equipo (espacio confinado): adentro se realizan las réplicas, las tintas, el UT y la VT interna.",
+   "alcance": "Rev.1 agrega tanque B con igual alcance (pliego fig. 8 dice «solo se tomará uno de ellos» → confirmar). VT int: ingreso espacio confinado por manhole. UT (o PAUT) spot en juntas del fondo (+ ensayo de vacío opcional). PT: costuras fondo (spot) + 100% conexiones sup./inf. y cuellos de manholes. RM: 4 pts suelo + 2 pts virolas.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-CL-002",
+   "desc": "Regenerador de amina",
+   "mat": "Envolvente SA-285 Gr.C (A.C.); ~10 m altura",
+   "ensayos": {
+    "VT int": {
+     "req": "X (EC)",
+     "piz": "A realizar (al abrir)",
+     "raw": "✔ al abrir",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (4 pts)",
+     "piz": "A realizar (EC al abrir)",
+     "raw": "✔ EC al abrir",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X (boquillas)",
+     "piz": "P soldaduras pintadas",
+     "raw": "P soldaduras pintadas",
+     "estado": "pendiente"
+    },
+    "UT": {
+     "req": "X (10\" y 20\")",
+     "piz": "A realizar (07/09)",
+     "raw": "✔ 07/09",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "07-08/09",
+   "cond": [
+    "Ap",
+    "EC",
+    "P"
+   ],
+   "coment": "Ap; EC; tiene pérdidas (A y B); el A tiene reparación: buscar fisuras ¿? · NOVEDAD 06/09: LP tachado porque las SOLDADURAS ESTÁN PINTADAS (confirmar c/Enzo). Se debe abrir para hacer la VT interna y las réplicas.",
+   "alcance": "VT int con ingreso por manholes inferior y superior (el intermedio queda excluido por inaccesibilidad). PT/MT: todas las conexiones de boquillas de la envolvente. UT/PAUT: soldaduras de conexiones principales con rehervidores de amina (10\" y 20\"). RM: 4 pts cara interna (2 por nivel accesible).",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-E-011 A y B",
+   "desc": "Intercambiador de 1ª etapa – gas de síntesis",
+   "mat": "Carcasa/cabezales A-53 Gr.B; conexiones A-181 Gr.1 / A-53 Gr.B",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X (spot)",
+     "piz": "A realizar (SPOT def. apertura)",
+     "raw": "SPOT ✔ def. apertura",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X",
+     "piz": "P no se puede (pintura)",
+     "raw": "P no se puede (pintura)",
+     "estado": "pendiente"
+    },
+    "UT": {
+     "req": "X",
+     "piz": "A realizar (07/09)",
+     "raw": "✔ 07/09",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "07/09",
+   "cond": [
+    "Ap",
+    "EC",
+    "P"
+   ],
+   "coment": "Ap; EC: se puede ingresar solo desde la boca de inspección ¿? · NOVEDAD 06/09: LP tiene PINTURA, no se puede hacer (confirmar c/Enzo). VT interna: depende de Enzo definir cuándo se hace.",
+   "alcance": "UT: costuras de fijación de cabezales con casquetes de 8\" + conexiones 1×1½\", 1×4\", 1×6\". PT: 100% conexiones de cabezales (las de UT) + carcasa: 1×3\" y 2×4\".",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-E-012 A y B",
+   "desc": "Interenfriador de 2ª etapa – gas de síntesis",
+   "mat": "Carcasa, cabezales y conexiones A-53 Gr.B",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X (spot)",
+     "piz": "A realizar (def. apertura)",
+     "raw": "✔ def. apertura",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X",
+     "piz": "P no se puede (pintura)",
+     "raw": "P no se puede (pintura)",
+     "estado": "pendiente"
+    },
+    "UT": {
+     "req": "X",
+     "piz": "A realizar (07/09)",
+     "raw": "✔ 07/09",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "07/09",
+   "cond": [
+    "Ap",
+    "P"
+   ],
+   "coment": "NOVEDAD 06/09: ídem 40-E-011 — LP con pintura, no se puede hacer (confirmar c/Enzo); VT interna: depende de Enzo definir cuándo se hace.",
+   "alcance": "UT: costuras de soldadura de cabezales y uniones de casquetes de 10\" + 2 conexiones de 3\". PT: conexiones de cabezal (las de UT) + carcasa: 1×3\" y 2×4\".",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-E-018 A y B",
+   "desc": "Post enfriador – gas de síntesis",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X (spot)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT": {
+     "req": "X ADIC. (4 caños)",
+     "piz": "A realizar (pedido)",
+     "raw": "✔ pedido",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap",
+    "P"
+   ],
+   "coment": "P; Ap; UT: si hay andamio se agrega en el cuerpo de soldadura ¿? · NOVEDAD 06/09: pidieron AGREGAR placas radiográficas en 4 caños (adicional al pliego). VT interna: depende de Enzo definir cuándo se hace.",
+   "alcance": "Pliego: SOLO inspección visual (carcasa condicionada al retiro del mazo; tubos spot por cabezal con videoscopio). CONFIRMADO 06/09: el «+✔(x4)» son placas Rx pedidas en 4 caños — alcance agregado a pedido de APASA (cotizar como adicional). El UT «si hay andamio» sigue a confirmar.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-E-035",
+   "desc": "Precalentador de gas",
+   "mat": "Inox. A-240 TP321; ~3 m sobre fundación",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar (Chequear si abrieron)",
+     "raw": "Chequear si abrieron ✔",
+     "estado": "a_realizar"
+    },
+    "VT int": {
+     "req": "(X) tapones",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (3+1 pts)",
+     "piz": "A realizar (al retirar aislación)",
+     "raw": "✔ al retirar aislación",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X (2 conex.+junta)",
+     "piz": "A realizar (requiere andamio)",
+     "raw": "✔ requiere andamio",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN",
+    "As"
+   ],
+   "coment": "Rx en caños a ↑ presión (x4) ¿? · NOVEDAD 06/09: PENDIENTE retirar la aislación — las réplicas se pueden hacer apenas la saquen. Para los LP de las cañerías del cuerpo se necesita ANDAMIO armado.",
+   "alcance": "VT int: por remoción de tapones con videoscopio. VT ext: 100% superficie con retiro de aislación. RM: 3 obligatorias (1 cabezal cónico + 2 antes/después de junta de expansión) + 4ª sobre la junta si es viable. PT: boquilla-carcasa 1×4\" y 1×6\" + 100% del corrugado de la junta de expansión.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-FS-002",
+   "desc": "Separador secundario de amoníaco",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "anulado"
+    },
+    "VT int": {
+     "req": "(X) spot",
+     "piz": "SPOT",
+     "raw": "SPOT",
+     "estado": "pendiente"
+    }
+   },
+   "liberacion": "07/09",
+   "cond": [
+    "Ap",
+    "As",
+    "IP"
+   ],
+   "coment": "As; IP; sacar tapones; VT ext: la junta de expansión está deteriorada · NOVEDAD 06/09: depende de cuándo ABRAN el equipo.",
+   "alcance": "Condicionado al desmontaje de la tapa superior: VT int spot con videoscopio de tubos del intercambiador superior + evaluación de juntas, internos de cabezales, placas porta-tubos y tapas de cierre.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-R-001",
+   "desc": "Reformador secundario (quench)",
+   "mat": "",
+   "ensayos": {
+    "VT int": {
+     "req": "X",
+     "piz": "A realizar (al abrir)",
+     "raw": "✔ al abrir",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (9 pts)",
+     "piz": "A realizar (al abrir (interior))",
+     "raw": "✔ al abrir (interior)",
+     "estado": "a_realizar"
+    },
+    "RT": {
+     "req": "X (tabla pto.6)",
+     "piz": "",
+     "raw": "",
+     "estado": "pendiente"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap",
+    "As"
+   ],
+   "coment": "As · NOVEDAD 06/09: depende de cuándo ABRAN el equipo para la VT interna y las réplicas (se hacen en el interior).",
+   "alcance": "RM desde cara interna, tras demolición/retiro del refractario: 3 pts cuello cilíndrico + 3 pts brida + 3 pts casquete. (La tabla del pto. 6 marca también RT, pero el Anexo I no lo detalla → confirmar).",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-R-003",
+   "desc": "Reactor de síntesis",
+   "mat": "Tee inferior A-105 (A.C.)",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "",
+     "raw": "",
+     "estado": "pendiente"
+    },
+    "VT int": {
+     "req": "(X) apertura",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (3 pts)",
+     "piz": "A realizar (07/09 ya se puede)",
+     "raw": "✔ 07/09 ya se puede",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X (100% Tee)",
+     "piz": "P no se puede (pintura)",
+     "raw": "P no se puede (pintura)",
+     "estado": "pendiente"
+    },
+    "RT": {
+     "req": "X (3 uniones)",
+     "piz": "A realizar (A confirmar)",
+     "raw": "A confirmar ✔",
+     "estado": "a_realizar"
+    },
+    "UT": {
+     "req": "X (alt. PAUT/TOFD)",
+     "piz": "A realizar (desde martes 08/09)",
+     "raw": "✔ desde martes 08/09",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap",
+    "EC",
+    "IP",
+    "P"
+   ],
+   "coment": "Ap; sacan mat. refractario → todo se hace del lado interno; IP; EC · NOVEDAD 06/09: las réplicas se pueden hacer YA mañana 07/09; las tintas NO se pueden hacer porque está PINTADO; el UT se puede hacer a partir del martes 08/09.",
+   "alcance": "VT int condicionada a apertura real (tapa + basket). RM: 3 pts equidistantes sobre Tee inferior. RT (o PAUT/TOFD, a cotizar factibilidad): 3 uniones a tope de la Tee inferior de 5\", 6\" y 9\". PT: 100% de las soldaduras de la Tee evaluadas por RT/UT.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-R-079 A y B",
+   "desc": "Desulfuradores (catalizador ZnO)",
+   "mat": "Envolvente A-204 Gr.B; conex. A-105 Gr.1 / A-53 Gr.B / A-181 Gr.1; ~5 m",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "VT int": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (4 pts)",
+     "piz": "A realizar (EC)",
+     "raw": "✔ EC",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X (7 conex., lado interno)",
+     "piz": "A realizar (VER)",
+     "raw": "VER ✔",
+     "estado": "a_realizar"
+    },
+    "RT": {
+     "req": "X (costuras 66\")",
+     "piz": "A realizar (07/09)",
+     "raw": "✔ 07/09",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "07/09",
+   "cond": [
+    "Ap",
+    "As",
+    "EC",
+    "IP",
+    "P"
+   ],
+   "coment": "Ap; P; IP ver; As · NOVEDAD 06/09: precisa PERMISO de espacio confinado para las réplicas y la VT interna; para las placas Rx deben RETIRAR la aislación.",
+   "alcance": "VT int: aprovechando apertura y vaciado de catalizador. VT ext: retiro de aislación buscando CUI. RM: 4 pts cara interna a distintos niveles. RT: costuras constructivas de la envolvente (DI 66\"). PT desde lado interno (pads externos): 2×3/4\", 1×1½\", 2×6\", 1×12\", 1×20\".",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-R-080",
+   "desc": "Desulfurador (catalizador Co-Mo)",
+   "mat": "Envolvente A-204 Gr.B",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "VT int": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (4 pts)",
+     "piz": "A realizar (EC)",
+     "raw": "✔ EC",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X (7 conex., lado interno)",
+     "piz": "A realizar (VER)",
+     "raw": "VER ✔",
+     "estado": "a_realizar"
+    },
+    "RT": {
+     "req": "X (costuras 66\")",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap",
+    "As",
+    "EC"
+   ],
+   "coment": "As; Ap; EC: réplicas en el interior; ver si se saca la pintura (¿EXO?) · NOVEDAD 06/09: ídem 40-R-079 — permiso de EC para réplicas y VT interna; para placas Rx deben retirar la aislación.",
+   "alcance": "Mismo criterio técnico que 40-R-079 A/B: RM 4 pts internos a distintas alturas; RT costuras circunf./longitudinales (DI 66\"); PT desde cara interna: 2×3/4\", 1×1½\", 2×6\", 1×12\", 1×20\".",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-V-001",
+   "desc": "Metanador",
+   "mat": "Envolvente A-204 Gr.B; ~6,5 m",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (18 pts)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [],
+   "coment": "Igual que 40-R-079 (pizarra) · NOVEDAD 06/09: NO le van a sacar la aislación (decisión Austin Powder) → ver con Enzo por dónde se hacen las réplicas.",
+   "alcance": "RM: 18 puntos totales – 9 puntos por nivel en 2 niveles de altura.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-V-002",
+   "desc": "Convertidor HTS (agregado Rev.1)",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X",
+     "piz": "A realizar (Ver acceso)",
+     "raw": "Ver acceso ✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN"
+   ],
+   "coment": "AN; NO van a sacar la aislación (decisión APASA) · NOVEDAD 06/09: para las réplicas hay que VERIFICAR EL ACCESO — si entra bien la amoladora por los lugares donde se realizó.",
+   "alcance": "Agregado en rojo en Rev.1 (sin sección propia en Anexo I): VT ext + VT int + réplicas según tabla pto. 6. No se retira la aislación → definir alcance real de VT ext/RM.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-V-027 A y B",
+   "desc": "Amortiguador de succión – 1ª etapa de síntesis",
+   "mat": "Envolvente 24\"",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "ANUL.",
+     "piz": "A realizar (¿?)",
+     "raw": "✔ ¿?",
+     "estado": "anulado"
+    },
+    "RT": {
+     "req": "X (2 conex. 8\")",
+     "piz": "A realizar (→VER←)",
+     "raw": "→VER← ✔",
+     "estado": "a_realizar"
+    },
+    "UT": {
+     "req": "X (100% env-casq.)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap",
+    "As"
+   ],
+   "coment": "As; NO van a sacar la aislación · NOVEDAD 06/09: ver cuándo se ABRE el equipo; entre Rx y UT se puede ELEGIR qué hacer — se define con Leston el martes 08/09 en la recorrida.",
+   "alcance": "Rev.1: se descarta insp. interna (no se desmonta). UT: 100% soldaduras de cierre envolvente-casquetes. RT: uniones a tope de boquillas 2×8\" (2 costuras por conexión). Rx o UT a elección (definir con Leston).",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-V-029 A y B",
+   "desc": "Amortiguador de succión – 2ª etapa de síntesis",
+   "mat": "Envolvente SA-285 Gr.C, 18\"",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "ANUL.",
+     "piz": "",
+     "raw": "",
+     "estado": "anulado"
+    },
+    "RT": {
+     "req": "X (2×4\", 1×6\", bota 10\")",
+     "piz": "A realizar (→VER←)",
+     "raw": "→VER← ✔",
+     "estado": "a_realizar"
+    },
+    "UT": {
+     "req": "X (2 uniones)",
+     "piz": "A realizar (con Leston)",
+     "raw": "✔ con Leston",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap"
+   ],
+   "coment": "Ap · NOVEDAD 06/09: faltaría hacer el UT con Leston (el pliego pide Rx o UT).",
+   "alcance": "Rev.1: se descarta insp. interna. UT: 2 uniones envolvente-casquetes. RT: boquillas (2 costuras c/u): 2×4\", 1×6\", 1 bota 10\". Rx o UT a elección.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "40",
+   "tag": "40-V-031 A y B",
+   "desc": "Amortiguador de succión – 3ª etapa de síntesis",
+   "mat": "Envolvente SA-285 Gr.C, 14\"",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "VT int": {
+     "req": "ANUL.",
+     "piz": "",
+     "raw": "",
+     "estado": "anulado"
+    },
+    "RT": {
+     "req": "ANUL. (verificar refuerzos)",
+     "piz": "A realizar (→VER←)",
+     "raw": "→VER← ✔",
+     "estado": "anulado"
+    },
+    "UT": {
+     "req": "X (2 uniones)",
+     "piz": "A realizar (con Leston)",
+     "raw": "✔ con Leston",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [],
+   "coment": "NOVEDAD 06/09: ídem 40-V-029 — faltaría hacer el UT con Leston.",
+   "alcance": "Rev.1: se descarta insp. interna; RT tachado (verificar por presencia de refuerzos). UT: 2 uniones envolvente-casquete.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "60",
+   "tag": "60-E-014",
+   "desc": "Evaporador de condensado (agregado Rev.1)",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "VT int": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap",
+    "As"
+   ],
+   "coment": "As; Ap; 4to piso · NOVEDAD 06/09: falta que retiren las aislaciones para hacer los ensayos.",
+   "alcance": "VT tubos por apertura de cabezales principales (videoscopio); carcasa condicionada a apertura de tapones; registrar insp. externa. PT: costuras de conexión de boquillas y de cabezales. Analizar complementar con ensayo volumétrico.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "60",
+   "tag": "60-E-152",
+   "desc": "Condensador neutralizador (agregado Rev.1)",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "VT int": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP/PM": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap",
+    "As"
+   ],
+   "coment": "As; Ap; 2do piso · NOVEDAD 06/09: falta que retiren las aislaciones para hacer los ensayos.",
+   "alcance": "Ídem 60-E-014: VT tubos por apertura de cabezales; carcasa según tapones; PT en costuras de boquillas y cabezales; analizar complemento volumétrico.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "equipo",
+   "area": "—",
+   "tag": "40-FS-12",
+   "desc": "Ítem ADICIONAL pedido por APASA (fuera de pliego)",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "fuera de pliego",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "extra"
+    },
+    "VT int": {
+     "req": "fuera de pliego",
+     "piz": "al abrir",
+     "raw": "al abrir",
+     "estado": "extra"
+    },
+    "Réplicas+Durezas": {
+     "req": "fuera de pliego",
+     "piz": "Enzo define dónde",
+     "raw": "Enzo define dónde",
+     "estado": "extra"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "Ap",
+    "As"
+   ],
+   "coment": "Ap; As · NOVEDAD 06/09: se agrega como ADICIONAL. Para la VT interna tienen que ABRIR el equipo; para las réplicas, Enzo debe definir dónde se hacen.",
+   "alcance": "Adicional a cotizar (no figura en el 90-PCO-RQ-009): VT externa + VT interna (sujeta a apertura) + réplicas (ubicación a definir por Enzo).",
+   "completo": false,
+   "extra": true
+  },
+  {
+   "tipo": "equipo",
+   "area": "—",
+   "tag": "10-BO-153 ¿?",
+   "desc": "Ítem extra de pizarra",
+   "mat": "",
+   "ensayos": {
+    "Réplicas+Durezas": {
+     "req": "fuera de pliego",
+     "piz": "A realizar (3 repl.)",
+     "raw": "3 repl. ✔",
+     "estado": "extra"
+    }
+   },
+   "liberacion": "",
+   "cond": [],
+   "coment": "Nota al pie: «10-BO-153 · 3 repl. ✔»",
+   "alcance": "No figura en el pliego → confirmar si corresponde a otro alcance.",
+   "completo": false,
+   "extra": true
+  }
+ ],
+ "canerias": [
+  {
+   "tipo": "caneria",
+   "area": "10",
+   "tag": "10-0005-PG-12\"",
+   "desc": "Línea de salida de gas del 10-E-151",
+   "mat": "AISI 321 (inox)",
+   "ensayos": {
+    "VT ext": {
+     "req": "X (50% recorrido)",
+     "piz": "A realizar (¿?)",
+     "raw": "✔ ¿✔?",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (3 pts)",
+     "piz": "Realizado (08/09)",
+     "raw": "✔✔ 08/09",
+     "estado": "realizado"
+    },
+    "Indentación": {
+     "req": "X (3 pts)",
+     "piz": "A realizar (07/09)",
+     "raw": "07/09 ✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (9 costuras)",
+     "piz": "A realizar",
+     "raw": "· ✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (9 costuras 12\")",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [],
+   "coment": "NOVEDAD 08/09: se hicieron las RÉPLICAS. Frente liberado (aislación retirada). Quedan VT ext, indentación, LP y RT. El «PLIEGO 832» de la pizarra corresponde a ESTA línea; se eliminó como ítem separado.",
+   "alcance": "VT del 50% del recorrido con retiro TOTAL de aislación (a cargo de APASA). RM: 3 pts (2 en trayecto de salida del 10-E-151 + 1 en unión Tee aguas arriba del 10-BO-156). RT 100% uniones a tope visibles (9 costuras de 12\") + PT complementario en las 9. Indentación/dureza en los mismos 3 pts de réplicas.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "10",
+   "tag": "10-0013-PG-12\"",
+   "desc": "Línea de salida de gas del 10-E-151 (se modifica un extremo: ensayar solo tramos recuperados)",
+   "mat": "AISI 321 (inox)",
+   "ensayos": {
+    "VT ext": {
+     "req": "X (100%)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (2 pts)",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "Indentación": {
+     "req": "X (2 pts)",
+     "piz": "A realizar (05/09)",
+     "raw": "05/09 ✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (5 costuras)",
+     "piz": "A realizar",
+     "raw": "· ✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (5 costuras 12\")",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "As"
+   ],
+   "coment": "As; coordinar c/ Marian",
+   "alcance": "VT 100% del recorrido con retiro total de aislación (APASA). RM: 2 pts (1 salida del 10-BO-152 + 1 punto medio). RT 100% costuras a tope visibles (5 de 12\") + PT en las 5. Indentación en los 2 pts de réplicas.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "10",
+   "tag": "10-0016-PG-12\"",
+   "desc": "Línea de salida de gas del 10-E-151",
+   "mat": "AISI 321 (inox)",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔ ✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (2 pts)",
+     "piz": "A realizar (07/09)",
+     "raw": "07/09 ✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X (2 pts)",
+     "piz": "A realizar (07/09)",
+     "raw": "07/09 ✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (2 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (2 costuras 12\")",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [],
+   "coment": "NOVEDAD 07/09: aislación YA RETIRADA y frente LIBERADO para ensayar (rige desde 07/09).",
+   "alcance": "VT del recorrido con retiro total de aislación (APASA); habrá sectores donde no se podrá retirar. RM: 2 pts (salida del 10-E-163 + ingreso al 10-BO-152, tramos verticales). RT 100% costuras a tope visibles (2 de 12\") + PT en las 2. Indentación en los pts de réplicas.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0004-PG-8\"",
+   "desc": "Salida de gas del reformador primario (línea de transferencia)",
+   "mat": "Incoloy 800",
+   "ensayos": {
+    "VT ext": {
+     "req": "X (100%)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (5 pts codos)",
+     "piz": "INCOLOY",
+     "raw": "INCOLOY",
+     "estado": "pendiente"
+    },
+    "Indentación": {
+     "req": "X (5 pts)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (19 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (19: 6×4\" + 13×8\")",
+     "piz": "A realizar (¿?)",
+     "raw": "✔ ¿?",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN",
+    "As"
+   ],
+   "coment": "AN; As; (INCOLOY)",
+   "alcance": "VT 100% del recorrido con retiro total de aislación (APASA). RM: 1 pt por codo de radio largo = 5 pts (Incoloy 800). RT 100% uniones a tope: 19 costuras (6 de 4\" + 13 de 8\") + PT en las 19. Indentación/dureza en los 5 pts. Pizarra anota «INCOLOY» en réplicas → definir tratamiento.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0009-PG-6\"",
+   "desc": "Alimentación de gas del reformador primario (colectores de admisión)",
+   "mat": "A-335 Gr.P11",
+   "ensayos": {
+    "VT ext": {
+     "req": "X (colectores)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (6 pts)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (~10 costuras 14\")",
+     "piz": "",
+     "raw": "",
+     "estado": "pendiente"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "As"
+   ],
+   "coment": "As",
+   "alcance": "Trabajo sobre colectores de admisión desde salida del 40-E-001; retiro de aislación para VT exterior de ambos colectores; cada colector tiene 36 uniones sockolet a flexibles. RM: 3 pts equidistantes por colector = 6 pts. RT 100% de la línea principal (trayectoria 40-E-001 al reformador): ~10 costuras de 14\".",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0029-PG-14\"",
+   "desc": "(Sin sección propia en Anexo I → verificar alcance)",
+   "mat": "",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN",
+    "As"
+   ],
+   "coment": "AS; AN; arriba de 40-E-035",
+   "alcance": "Figura en la tabla del pto. 6 (VT/RM/Indent/LP/RX) pero NO tiene sección de detalle en el Anexo I → confirmar cantidades con APASA.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0030-PG-14\"",
+   "desc": "Salida de gas del reformador secundario (quench-pot → precalentador 40-E-035)",
+   "mat": "A-335 Gr.P11",
+   "ensayos": {
+    "VT ext": {
+     "req": "X (100%)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (1 por codo y tramo)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (10 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (~10 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN",
+    "As"
+   ],
+   "coment": "AN; zona central es la que importa; AS",
+   "alcance": "VT completa previa al retiro de aislación. RM: 1 réplica por cada codo y tramo recto. RT: todas las uniones a tope (~10 costuras) + PT 100% de esas costuras. Dureza/indentación en pts de réplicas, intensificando en tramos rectos con deformación geométrica visible.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0035-PG-14\"",
+   "desc": "Línea de conexión entre 40-E-001 y 40-V-002",
+   "mat": "A-335 Gr.P11",
+   "ensayos": {
+    "VT ext": {
+     "req": "X (100%)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (1 por codo y tramo)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (11 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (11 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "As"
+   ],
+   "coment": "As; desde la plataforma y el equipo se puede",
+   "alcance": "VT 100% de la longitud, previo retiro de aislación (APASA). RM: 1 pt por codo y tramo recto. RT: totalidad de uniones a tope (~11 costuras) + PT en las 11. Dureza/indentación en pts de réplicas, intensificar donde haya deformación.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0041-PG-14\"",
+   "desc": "Línea de conexión entre 40-E-001 y 40-V-001",
+   "mat": "A-335 Gr.P11",
+   "ensayos": {
+    "VT ext": {
+     "req": "X (100%)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Réplicas+Durezas": {
+     "req": "X (1 por codo y tramo)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (13 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (13 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "As"
+   ],
+   "coment": "As",
+   "alcance": "VT en todo el recorrido con retiro de aislación (APASA). RM: 1 pt por codo y tramo recto. RT: ~13 costuras a tope + PT en las 13. Dureza en pts de réplica.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0021-AMV-6\"",
+   "desc": "Conexión entre filtro 40-F-012 y separador secundario 40-FS-002",
+   "mat": "API 5L, SCH XXS",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔ –",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X (tabla)",
+     "piz": "A realizar",
+     "raw": "✔ ·",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (10 costuras)",
+     "piz": "A realizar (P)",
+     "raw": "P ✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (10 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN"
+   ],
+   "coment": "AN",
+   "alcance": "VT en todo el recorrido. RT: ~10 costuras a tope + PT complementario en las 10. (Indentación marcada en tabla pto. 6; el Anexo I no la detalla).",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0140-PG-6\"",
+   "desc": "Conexión entre 40-0084-PG-6\" y filtro 40-F-012",
+   "mat": "API 5L, SCH XXS",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "Indentación": {
+     "req": "X (tabla)",
+     "piz": "07/09 ·",
+     "raw": "07/09 ·",
+     "estado": "pendiente"
+    },
+    "LP": {
+     "req": "X (8 costuras)",
+     "piz": "A realizar (P)",
+     "raw": "P ✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (8 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN",
+    "P"
+   ],
+   "coment": "P; AN",
+   "alcance": "VT en todo el recorrido. RT: ~8 costuras a tope + PT en las 8. (El pliego la titula 40-0140-AMV-6\").",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0012-AMV-6\"",
+   "desc": "Conexión entre separador 40-FS-002 y reactor de amoníaco 40-R-003",
+   "mat": "API 5L, SCH XXS",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X (tabla)",
+     "piz": "A realizar (As)",
+     "raw": "As ✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (18 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (18 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN",
+    "As"
+   ],
+   "coment": "As; AN",
+   "alcance": "VT en todo el recorrido. RT: ~18 costuras a tope + PT en las 18.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0022-AMV-6\"",
+   "desc": "Conexión entre 40-FS-002 y condensador de amoníaco 40-E-020",
+   "mat": "API 5L, SCH XXS",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X (tabla)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (4 costuras)",
+     "piz": "(tachado) ¿?",
+     "raw": "(tachado) ¿?",
+     "estado": "pendiente"
+    },
+    "RT (Rx)": {
+     "req": "X (4 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN",
+    "As",
+    "P"
+   ],
+   "coment": "As; P; AN",
+   "alcance": "VT en todo el recorrido. RT: ~4 costuras a tope + PT en las 4.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0010-AML-6\"",
+   "desc": "Conexión entre condensador 40-E-020 y separador 40-FS-002",
+   "mat": "API 5L, SCH XXS",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    },
+    "Indentación": {
+     "req": "X (tabla)",
+     "piz": "A realizar (AS)",
+     "raw": "AS ✔",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (5 costuras)",
+     "piz": "∠P ¿?",
+     "raw": "∠P ¿?",
+     "estado": "pendiente"
+    },
+    "RT (Rx)": {
+     "req": "X (5 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "As",
+    "P"
+   ],
+   "coment": "P; As",
+   "alcance": "VT en todo el recorrido. RT: ~5 costuras a tope + PT en las 5.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0030-AMV-6\"",
+   "desc": "Conexión entre condensador primario 40-E-021 y separador primario 40-FS-001",
+   "mat": "API 5L, SCH XXS",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "Indentación": {
+     "req": "X (tabla)",
+     "piz": "A realizar (R)",
+     "raw": "R ✔ ·",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (11 costuras)",
+     "piz": "/ P ¿?",
+     "raw": "/ P ¿?",
+     "estado": "pendiente"
+    },
+    "RT (Rx)": {
+     "req": "X (11 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [],
+   "coment": "",
+   "alcance": "VT en todo el recorrido. RT: ~11 costuras a tope + PT en las 11.",
+   "completo": false,
+   "extra": false
+  },
+  {
+   "tipo": "caneria",
+   "area": "40",
+   "tag": "40-0094-PG-6\"",
+   "desc": "Conexión entre separador primario 40-FS-001 y continuación de línea 40-0094-PG",
+   "mat": "API 5L, SCH XXS",
+   "ensayos": {
+    "VT ext": {
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
+    },
+    "Indentación": {
+     "req": "X (tabla)",
+     "piz": "A realizar",
+     "raw": "✔ ·",
+     "estado": "a_realizar"
+    },
+    "LP": {
+     "req": "X (5 costuras)",
+     "piz": "A realizar",
+     "raw": "✔ ·",
+     "estado": "a_realizar"
+    },
+    "RT (Rx)": {
+     "req": "X (5 costuras)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
+    }
+   },
+   "liberacion": "",
+   "cond": [
+    "AN",
+    "As"
+   ],
+   "coment": "AS; An (Rx)",
+   "alcance": "VT en todo el recorrido. RT: ~5 costuras a tope + PT en las 5. Pizarra: andamio asociado al Rx.",
+   "completo": false,
+   "extra": false
+  }
+ ],
+ "consultas": [
+  {
+   "item": "10-CL-202",
+   "tema": "Pasar el video de la inspección visual interna."
+  },
+  {
+   "item": "10-CL-202",
+   "tema": "LP faltantes: ¿dónde se hacen las conexiones restantes?"
+  },
+  {
+   "item": "10-E-162",
+   "tema": "Pasar el video de la inspección visual interna. (LP: definido que NO se hace por pintura.)"
+  },
+  {
+   "item": "10-E-150",
+   "tema": "VT interna: evaluar con Enzo POR DÓNDE se hace el acceso."
+  },
+  {
+   "item": "10-E-168",
+   "tema": "LP a confirmar: el equipo está pintado — ¿se hace la técnica sobre la pintura o se retira?"
+  },
+  {
+   "item": "40-CL-002",
+   "tema": "LP tachado: las soldaduras están pintadas — confirmar cómo se resuelve (retiro de pintura o no se hace)."
+  },
+  {
+   "item": "40-E-011 / 012 A y B",
+   "tema": "Fecha ya definida (rige Enzo, con la apertura). Falta: LP bloqueado por pintura — confirmar si se hace o no."
+  },
+  {
+   "item": "40-E-018 A y B",
+   "tema": "Confirmar alcance de las placas radiográficas pedidas en 4 caños (adicional) y el UT «si hay andamio»."
+  },
+  {
+   "item": "40-V-001",
+   "tema": "No se retira la aislación (decisión Austin Powder): definir con Enzo por dónde se hacen las réplicas."
+  },
+  {
+   "item": "40-V-002",
+   "tema": "No se retira la aislación: verificar con Enzo el acceso de la amoladora en los puntos de réplica."
+  },
+  {
+   "item": "40-0004-PG-8\"",
+   "tema": "Réplicas en material Incoloy 800: definir tratamiento/preparación con Enzo."
+  },
+  {
+   "item": "40-FS-12 (adicional)",
+   "tema": "Réplicas: Enzo debe definir dónde se hacen. VT interna: requiere apertura del equipo."
+  },
+  {
+   "item": "General — LP con «P»",
+   "tema": "Regla general: tintas tachadas o con «P» = ítem pintado, no se puede hacer la técnica. Definir con Enzo caso por caso (incluye 40-R-003 y cañerías 40-0021, 40-0140, 40-0010, 40-0030-AMV)."
+  }
+ ],
+ "enzo": {
+  "10-BO-156": {
+   "lib": "03/09",
+   "e1": "07/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "CERRADO 08/09 — réplicas y VT interna realizadas",
+   "nota": "Equipo completo. Aislación ya estaba retirada.",
+   "lib_iso": "2026-09-03",
+   "e1_iso": "2026-09-07",
+   "e1_iso_max": "2026-09-07",
+   "e2_iso": ""
+  },
+  "10-CL-202": {
+   "lib": "09/09",
+   "e1": "09/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "PARCIAL",
+   "usable": "MAÑANA 09/09: se terminan las tintas penetrantes (LP) → con eso cierra",
+   "nota": "VT ext+int ya realizadas; solo restaba el LP.",
+   "lib_iso": "2026-09-09",
+   "e1_iso": "2026-09-09",
+   "e1_iso_max": "2026-09-09",
+   "e2_iso": ""
+  },
+  "10-E-001 A y B": {
+   "lib": "—",
+   "e1": "07/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "CERRADO 08/09 — VT interna (A y B) realizada",
+   "nota": "Se hizo la VT interna. (Enzo había estimado 14/09 / INGYSOL 18-19, no aplicó.)",
+   "lib_iso": "",
+   "e1_iso": "2026-09-07",
+   "e1_iso_max": "2026-09-07",
+   "e2_iso": ""
+  },
+  "10-E-150": {
+   "lib": "05/09",
+   "e1": "07/09",
+   "e2": "",
+   "ing": "18/09",
+   "verdict": "PARCIAL",
+   "usable": "Pendientes: VT interna (evaluar dónde con Enzo) y LP en junta de expansión",
+   "nota": "VT ext, réplicas y LP de conexiones ya hechos.",
+   "lib_iso": "2026-09-05",
+   "e1_iso": "2026-09-07",
+   "e1_iso_max": "2026-09-07",
+   "e2_iso": ""
+  },
+  "10-E-162": {
+   "lib": "07/09",
+   "e1": "09/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "Falta el video de la VT interna (Enzo); LP no se hace (pintado)",
+   "nota": "VT ext ya hecha. Tintas descartadas por pintura (def. Enzo).",
+   "lib_iso": "2026-09-07",
+   "e1_iso": "2026-09-09",
+   "e1_iso_max": "2026-09-09",
+   "e2_iso": ""
+  },
+  "10-E-165": {
+   "lib": "09/09",
+   "e1": "10/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "UT en soldaduras a pedido de Enzo; LP no se hace (pintado)",
+   "nota": "VT ext hecha. VT interna descartada (no existe tapón).",
+   "lib_iso": "2026-09-09",
+   "e1_iso": "2026-09-10",
+   "e1_iso_max": "2026-09-10",
+   "e2_iso": ""
+  },
+  "10-E-168": {
+   "lib": "07/09",
+   "e1": "08/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "08/09 (VT ext)",
+   "nota": "LP a confirmar por pintura (Enzo).",
+   "lib_iso": "2026-09-07",
+   "e1_iso": "2026-09-08",
+   "e1_iso_max": "2026-09-08",
+   "e2_iso": ""
+  },
+  "10-TK-251 A y B": {
+   "lib": "09/09",
+   "e1": "09/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "MAÑANA 09/09: ingreso a EC (A y B) — réplicas, VT interna, tintas (LP) y UT",
+   "nota": "Ingreso confirmado para el 09/09. Confirmar si van los 2 tanques.",
+   "lib_iso": "2026-09-09",
+   "e1_iso": "2026-09-09",
+   "e1_iso_max": "2026-09-09",
+   "e2_iso": ""
+  },
+  "40-CL-002": {
+   "lib": "09/09",
+   "e1": "08/09",
+   "e2": "08/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "08/09 (VT int/RM al abrir + UT)",
+   "nota": "RESUELTO 07/09 (Camila): se hace el 08/09. LP bloqueado por pintura (consulta a Enzo).",
+   "lib_iso": "2026-09-09",
+   "e1_iso": "2026-09-08",
+   "e1_iso_max": "2026-09-08",
+   "e2_iso": "2026-09-08"
+  },
+  "40-E-011 A y B": {
+   "lib": "A 14/09 · B 10/09",
+   "e1": "A 15/09 · B 13/09",
+   "e2": "15/09",
+   "ing": "16/09",
+   "verdict": "USAR",
+   "usable": "VT int + UT con la apertura: B 13/09 · A 15/09 (s/Enzo); INGYSOL 16/09",
+   "nota": "RESUELTO 07/09 (Camila): el equipo NO está abierto; n/ 07/09 era estimación → rige el cronograma de Enzo.",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-13",
+   "e1_iso_max": "2026-09-15",
+   "e2_iso": "2026-09-15"
+  },
+  "40-E-012 A y B": {
+   "lib": "A 15/09 · B 10/09",
+   "e1": "A 16/09 · B 13/09",
+   "e2": "A 16/09 · B 15/09",
+   "ing": "A 17/09 · B 16/09",
+   "verdict": "USAR",
+   "usable": "B 13/09 · A 16/09 (s/Enzo); INGYSOL 16-17/09",
+   "nota": "RESUELTO 07/09 (Camila): ídem 40-E-011, rige Enzo (no está abierto).",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-13",
+   "e1_iso_max": "2026-09-16",
+   "e2_iso": "2026-09-16"
+  },
+  "40-E-018 A y B": {
+   "lib": "A 15/09 · B 10/09",
+   "e1": "A 16/09 · B 11/09",
+   "e2": "",
+   "ing": "A 17/09 · B 16/09",
+   "verdict": "USAR",
+   "usable": "B: 11/09 · A: 16/09 (VT int + placas Rx adic.)",
+   "nota": "VT ext ya hecha. Confirmar 4 placas Rx adicionales.",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-11",
+   "e1_iso_max": "2026-09-16",
+   "e2_iso": ""
+  },
+  "40-E-035": {
+   "lib": "07/09",
+   "e1": "08/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "08/09",
+   "nota": "RESUELTO 07/09 (Camila): se hace el 08/09. LP del cuerpo requiere andamio armado.",
+   "lib_iso": "2026-09-07",
+   "e1_iso": "2026-09-08",
+   "e1_iso_max": "2026-09-08",
+   "e2_iso": ""
+  },
+  "40-FS-002": {
+   "lib": "15/09",
+   "e1": "16/09",
+   "e2": "",
+   "ing": "17/09",
+   "verdict": "USAR",
+   "usable": "16/09 (depende de la apertura)",
+   "nota": "—",
+   "lib_iso": "2026-09-15",
+   "e1_iso": "2026-09-16",
+   "e1_iso_max": "2026-09-16",
+   "e2_iso": ""
+  },
+  "40-R-001": {
+   "lib": "14/09",
+   "e1": "15/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "15/09 (VT int + réplicas al abrir)",
+   "nota": "—",
+   "lib_iso": "2026-09-14",
+   "e1_iso": "2026-09-15",
+   "e1_iso_max": "2026-09-15",
+   "e2_iso": ""
+  },
+  "40-R-003": {
+   "lib": "06/09",
+   "e1": "07/09",
+   "e2": "12/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "E1 07/09 (réplicas) · E2 12/09 (volumétrico)",
+   "nota": "Calza con n/ plan (RM 07/09, UT desde 08/09). LP bloqueado por pintura.",
+   "lib_iso": "2026-09-06",
+   "e1_iso": "2026-09-07",
+   "e1_iso_max": "2026-09-07",
+   "e2_iso": "2026-09-12"
+  },
+  "40-R-079 A y B": {
+   "lib": "15/09",
+   "e1": "16/09",
+   "e2": "16/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "15-16/09 (s/Enzo)",
+   "nota": "RESUELTO 07/09 (Camila): rige la fecha de Enzo (15-16/09), no la liberación de pizarra (07/09).",
+   "lib_iso": "2026-09-15",
+   "e1_iso": "2026-09-16",
+   "e1_iso_max": "2026-09-16",
+   "e2_iso": "2026-09-16"
+  },
+  "40-R-080": {
+   "lib": "18/09",
+   "e1": "19/09",
+   "e2": "19/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "19/09 (EC + réplicas; Rx tras retiro de aislación)",
+   "nota": "Fecha tardía, cerca del cierre de parada.",
+   "lib_iso": "2026-09-18",
+   "e1_iso": "2026-09-19",
+   "e1_iso_max": "2026-09-19",
+   "e2_iso": "2026-09-19"
+  },
+  "40-V-001": {
+   "lib": "07/09",
+   "e1": "08/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "08/09 (réplicas)",
+   "nota": "Sin retiro de aislación (APASA): acceso a definir con Enzo.",
+   "lib_iso": "2026-09-07",
+   "e1_iso": "2026-09-08",
+   "e1_iso_max": "2026-09-08",
+   "e2_iso": ""
+  },
+  "40-V-002": {
+   "lib": "12/09",
+   "e1": "13/09",
+   "e2": "",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "13/09 (VT int + réplicas)",
+   "nota": "VT ext hecha. Sin retiro de aislación: verificar acceso de amoladora.",
+   "lib_iso": "2026-09-12",
+   "e1_iso": "2026-09-13",
+   "e1_iso_max": "2026-09-13",
+   "e2_iso": ""
+  },
+  "40-V-027 A y B": {
+   "lib": "A 10/09 · B 06/09",
+   "e1": "A 14/09 · B 09/09",
+   "e2": "15/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "Decisión Rx/UT con Leston 08/09; ejecución E1 09-14/09 · E2 15/09 (s/Enzo)",
+   "nota": "—",
+   "lib_iso": "2026-09-06",
+   "e1_iso": "2026-09-09",
+   "e1_iso_max": "2026-09-14",
+   "e2_iso": "2026-09-15"
+  },
+  "40-V-029 A y B": {
+   "lib": "A 10/09 · B 06/09",
+   "e1": "A 12/09 · B 09/09",
+   "e2": "15/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "UT con Leston; E1 09-12/09 · E2 15/09 (s/Enzo)",
+   "nota": "—",
+   "lib_iso": "2026-09-06",
+   "e1_iso": "2026-09-09",
+   "e1_iso_max": "2026-09-12",
+   "e2_iso": "2026-09-15"
+  },
+  "40-V-031 A y B": {
+   "lib": "A 10/09 · B 06/09",
+   "e1": "A 13/09 · B 09/09",
+   "e2": "16/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "UT con Leston; E1 09-13/09 · E2 16/09 (s/Enzo)",
+   "nota": "—",
+   "lib_iso": "2026-09-06",
+   "e1_iso": "2026-09-09",
+   "e1_iso_max": "2026-09-13",
+   "e2_iso": "2026-09-16"
+  },
+  "60-E-014": {
+   "lib": "04/09",
+   "e1": "07/09",
+   "e2": "",
+   "ing": "14/09",
+   "verdict": "USAR",
+   "usable": "07/09 (s/Enzo); VT interna sujeta a apertura INGYSOL 14/09",
+   "nota": "RESUELTO 07/09 (Camila): rige la fecha del cronograma de Enzo. La VT interna depende de la apertura (INGYSOL 14/09).",
+   "lib_iso": "2026-09-04",
+   "e1_iso": "2026-09-07",
+   "e1_iso_max": "2026-09-07",
+   "e2_iso": ""
+  },
+  "60-E-152": {
+   "lib": "03/09",
+   "e1": "07/09",
+   "e2": "",
+   "ing": "14/09",
+   "verdict": "USAR",
+   "usable": "07/09 (s/Enzo); VT interna sujeta a apertura INGYSOL 14/09",
+   "nota": "RESUELTO 07/09 (Camila): rige la fecha del cronograma de Enzo. VT interna sujeta a apertura (INGYSOL 14/09).",
+   "lib_iso": "2026-09-03",
+   "e1_iso": "2026-09-07",
+   "e1_iso_max": "2026-09-07",
+   "e2_iso": ""
+  },
+  "10-0005-PG-12\"": {
+   "lib": "—",
+   "e1": "08/09",
+   "e2": "09/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "Réplicas hechas 08/09 — quedan VT ext, indentación, LP y RT",
+   "nota": "Frente liberado (aislación retirada). (Enzo estimaba 11-12/09.)",
+   "lib_iso": "",
+   "e1_iso": "2026-09-08",
+   "e1_iso_max": "2026-09-08",
+   "e2_iso": "2026-09-09"
+  },
+  "10-0013-PG-12\"": {
+   "lib": "10/09",
+   "e1": "11/09",
+   "e2": "12/09",
+   "ing": "",
+   "verdict": "PARCIAL",
+   "usable": "Resto (VT ext, LP, RT) en 11-12/09",
+   "nota": "Réplicas ya realizadas; indent desde 05/09.",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-11",
+   "e1_iso_max": "2026-09-11",
+   "e2_iso": "2026-09-12"
+  },
+  "10-0016-PG-12\"": {
+   "lib": "—",
+   "e1": "07/09",
+   "e2": "08/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "Liberado (aislación retirada) — ensayar desde 07/09",
+   "nota": "RESUELTO 07/09 (Camila): aislación YA retirada y frente LIBERADO. Réplicas/indent 07/09; RT/LP a continuación. (Enzo estimaba 11-12/09.)",
+   "lib_iso": "",
+   "e1_iso": "2026-09-07",
+   "e1_iso_max": "2026-09-07",
+   "e2_iso": "2026-09-08"
+  },
+  "40-0004-PG-8\"": {
+   "lib": "09/09",
+   "e1": "10/09",
+   "e2": "12/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "E1 10/09 · E2 12/09",
+   "nota": "Réplicas Incoloy: definir tratamiento (Enzo).",
+   "lib_iso": "2026-09-09",
+   "e1_iso": "2026-09-10",
+   "e1_iso_max": "2026-09-10",
+   "e2_iso": "2026-09-12"
+  },
+  "40-0009-PG-6\"": {
+   "lib": "09/09",
+   "e1": "10/09",
+   "e2": "12/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "E1 10/09 · E2 12/09",
+   "nota": "—",
+   "lib_iso": "2026-09-09",
+   "e1_iso": "2026-09-10",
+   "e1_iso_max": "2026-09-10",
+   "e2_iso": "2026-09-12"
+  },
+  "40-0029-PG-14\"": {
+   "lib": "10/09",
+   "e1": "12/09",
+   "e2": "13/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "E1 12/09 · E2 13/09",
+   "nota": "Alcance a confirmar (sin detalle en Anexo I).",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-12",
+   "e1_iso_max": "2026-09-12",
+   "e2_iso": "2026-09-13"
+  },
+  "40-0030-PG-14\"": {
+   "lib": "11/09",
+   "e1": "15/09",
+   "e2": "14/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "14-15/09",
+   "nota": "En el archivo de Enzo E1/E2 aparecen invertidas.",
+   "lib_iso": "2026-09-11",
+   "e1_iso": "2026-09-15",
+   "e1_iso_max": "2026-09-15",
+   "e2_iso": "2026-09-14"
+  },
+  "40-0035-PG-14\"": {
+   "lib": "10/09",
+   "e1": "12/09",
+   "e2": "13/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "E1 12/09 · E2 13/09",
+   "nota": "—",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-12",
+   "e1_iso_max": "2026-09-12",
+   "e2_iso": "2026-09-13"
+  },
+  "40-0041-PG-14\"": {
+   "lib": "11/09",
+   "e1": "15/09",
+   "e2": "14/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "14-15/09",
+   "nota": "E1/E2 invertidas en el archivo.",
+   "lib_iso": "2026-09-11",
+   "e1_iso": "2026-09-15",
+   "e1_iso_max": "2026-09-15",
+   "e2_iso": "2026-09-14"
+  },
+  "40-0021-AMV-6\"": {
+   "lib": "11/09",
+   "e1": "14/09",
+   "e2": "14/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "14/09",
+   "nota": "LP con pintura a confirmar.",
+   "lib_iso": "2026-09-11",
+   "e1_iso": "2026-09-14",
+   "e1_iso_max": "2026-09-14",
+   "e2_iso": "2026-09-14"
+  },
+  "40-0140-PG-6\"": {
+   "lib": "10/09",
+   "e1": "13/09",
+   "e2": "13/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "13/09",
+   "nota": "VT ext hecha. LP con pintura a confirmar.",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-13",
+   "e1_iso_max": "2026-09-13",
+   "e2_iso": "2026-09-13"
+  },
+  "40-0012-AMV-6\"": {
+   "lib": "10/09",
+   "e1": "12/09",
+   "e2": "13/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "12-13/09",
+   "nota": "—",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-12",
+   "e1_iso_max": "2026-09-12",
+   "e2_iso": "2026-09-13"
+  },
+  "40-0022-AMV-6\"": {
+   "lib": "11/09",
+   "e1": "14/09",
+   "e2": "14/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "14/09",
+   "nota": "LP con pintura a confirmar.",
+   "lib_iso": "2026-09-11",
+   "e1_iso": "2026-09-14",
+   "e1_iso_max": "2026-09-14",
+   "e2_iso": "2026-09-14"
+  },
+  "40-0010-AML-6\"": {
+   "lib": "10/09",
+   "e1": "12/09",
+   "e2": "13/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "12-13/09",
+   "nota": "LP con pintura a confirmar.",
+   "lib_iso": "2026-09-10",
+   "e1_iso": "2026-09-12",
+   "e1_iso_max": "2026-09-12",
+   "e2_iso": "2026-09-13"
+  },
+  "40-0030-AMV-6\"": {
+   "lib": "11/09",
+   "e1": "14/09",
+   "e2": "14/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "14/09",
+   "nota": "VT ext hecha. LP con pintura a confirmar.",
+   "lib_iso": "2026-09-11",
+   "e1_iso": "2026-09-14",
+   "e1_iso_max": "2026-09-14",
+   "e2_iso": "2026-09-14"
+  },
+  "40-0094-PG-6\"": {
+   "lib": "11/09",
+   "e1": "15/09",
+   "e2": "14/09",
+   "ing": "",
+   "verdict": "USAR",
+   "usable": "14-15/09",
+   "nota": "VT ext hecha. E1/E2 invertidas en el archivo.",
+   "lib_iso": "2026-09-11",
+   "e1_iso": "2026-09-15",
+   "e1_iso_max": "2026-09-15",
+   "e2_iso": "2026-09-14"
+  }
+ }
+};
+
+/* ---------- calendario ---------- */
+const D0 = new Date(2026,8,1);            // 01/09/26
+const NDAYS = 28;                          // hasta 28/09
+const CORTE = new Date(2026,8,6);          // 06/09 (base de pizarras, fijo)
+const NOWORK = new Set(["2026-09-05","2026-09-06"]);  // sáb 05 y dom 06: no se trabajó
+const _now = new Date();                    // se actualiza solo cada día
+const HOY = new Date(_now.getFullYear(), _now.getMonth(), _now.getDate());
+const fmt = d => String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0");
+const isoOf = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const idx = d => Math.round((d-D0)/86400000);
+const isWknd = d => d.getDay()===0||d.getDay()===6;
+function nextBiz(d){const x=new Date(d);while(isWknd(x))x.setDate(x.getDate()+1);return x;}
+function addBiz(d,n){const x=new Date(d);let k=0;while(k<n){x.setDate(x.getDate()+1);if(!isWknd(x))k++;}return x;}
+function parseDispo(raw){ // "05/09", "07/09", "2/9"…
+  const m=(raw||"").match(/(\d{1,2})\s*\/\s*0?9/);
+  if(!m) return null;
+  return new Date(2026,8,parseInt(m[1],10));
+}
+
+/* ---------- normalización de ítems ---------- */
+const CONDS = ["AN","As","P","EC","Ap","IP","H"];
+const ABBR = {"VT ext":"VTe","VT int":"VTi","Réplicas+Durezas":"RM","LP/PM":"LP","LP":"LP","RT":"RT","RT (Rx)":"RT","UT":"UT","Indentación":"IND"};
+function normalize(list){
+  return list.map(it=>{
+    const tests=[];
+    for(const [k,v] of Object.entries(it.ensayos)){
+      if(!v) continue;
+      let st=v.estado;
+      if(st==="anulado") continue;
+      if(st==="extra"||it.extra) st = st==="realizado"?"realizado":"extra";
+      const raw=v.raw||"";
+      const dudas=/¿|VER|A confirmar|Chequear/i.test(raw)||/¿/.test(v.req||"");
+      tests.push({k, ab:ABBR[k]||k, req:v.req, piz:v.piz, raw, st, dudas, dispo:parseDispo(raw)});
+    }
+    const reqT=tests.filter(t=>t.st!=="extra");
+    const done=reqT.filter(t=>t.st==="realizado").length;
+    const duda = tests.some(t=>t.dudas)||/¿/.test(it.coment||"")||/confirmar/i.test(it.coment||"")||/confirmar/i.test(it.alcance||"");
+    const ef = it.extra ? ["ADICIONAL A COTIZAR","ef-adicional"]
+      : (reqT.length && done===reqT.length) ? ["CERRADO","ef-cerrado"]
+      : duda ? ["CONDICIONADO","ef-condicionado"]
+      : done>0 ? ["EN CURSO","ef-encurso"] : ["ABIERTO","ef-abierto"];
+    return {...it, tests, nreq:reqT.length, ndone:done, duda, ef,
+      libDate:parseDispo(it.liberacion)};
+  });
+}
+document.getElementById("updDate").textContent =
+  HOY.toLocaleDateString('es-AR',{weekday:'long',day:'2-digit',month:'2-digit',year:'numeric'});
+const EQ = normalize(DB.equipos), CA = normalize(DB.canerias);
+const ALL = EQ.concat(CA);
+const ENZO = DB.enzo || {};
+ALL.forEach(it=>{ it.enzo = ENZO[it.tag] || null; });
+
+/* ---------- programación tentativa ---------- */
+const isoDate = s => s ? new Date(s+"T00:00:00") : null;
+const VOL = new Set(["RT","UT"]);        // ensayos volumétricos → Etapa 2 de Enzo
+function schedule(it){
+  // Regla (Camila 07/09): pendientes → fecha de LIBERACIÓN de Enzo (una sola por equipo);
+  // si esa liberación ya pasó y el ensayo sigue pendiente, se lleva a HOY.
+  // Realizados → quedan en la fecha nuestra (antes del corte).
+  const e = it.enzo;
+  const eLib = e && e.lib_iso ? isoDate(e.lib_iso) : null;
+  const eE1  = e && e.e1_iso  ? isoDate(e.e1_iso)  : null;
+  const eE2  = e && e.e2_iso  ? isoDate(e.e2_iso)  : null;
+  const anchor = eLib || eE1 || eE2 || it.libDate || null;  // preferir liberación de Enzo
+  const fromEnzo = !!eLib;
+  let cursor = nextBiz(new Date(Math.max(HOY-0, addBiz(CORTE,1)-0)));
+  for(const t of it.tests){
+    if(t.st==="realizado"){ t.enzoBar=false; continue; }
+    if(anchor){
+      const base = (anchor-0 < HOY-0) ? HOY : anchor;   // pendiente no se dibuja en el pasado
+      t.start = nextBiz(new Date(base));
+      t.enzoBar = fromEnzo;
+    }else if(t.dispo){
+      t.start = nextBiz(new Date(Math.max(t.dispo-0, HOY-0)));
+      t.enzoBar = false;
+    }else{
+      t.start = new Date(cursor);
+      cursor = addBiz(cursor,1);
+      t.enzoBar = false;
+    }
+    t.end = new Date(t.start);
+  }
+}
+ALL.forEach(schedule);
+
+/* ---------- KPIs & resumen ---------- */
+const allTests = ALL.flatMap(i=>i.tests);
+const nDone = allTests.filter(t=>t.st==="realizado").length;
+const nPlan = allTests.filter(t=>t.st==="a_realizar").length;
+const nPend = allTests.filter(t=>t.st==="pendiente").length;
+const nExtra = ALL.filter(i=>i.extra).length;
+const nDudas = ALL.filter(i=>i.duda).length;
+const nReq = allTests.filter(t=>t.st!=="extra").length;
+const pct = Math.round(100*nDone/nReq);
+let bizLeft=0; for(let d=addBiz(CORTE,0),e=new Date(2026,8,28); d<=e; d.setDate(d.getDate()+1)) if(!isWknd(d)) bizLeft++;
+document.getElementById("kpis").innerHTML = `
+  <div class="kpi"><div class="n">${ALL.length}</div><div class="l">Ítems (${EQ.length} equipos · ${CA.length} líneas)</div></div>
+  <div class="kpi gd"><div class="n">${nDone}<span style="font-size:15px;color:var(--muted)">/${nReq}</span></div><div class="l">Ensayos realizados · ${pct}%</div></div>
+  <div class="kpi pl"><div class="n">${nPlan}</div><div class="l">A realizar (programados)</div></div>
+  <div class="kpi wr"><div class="n">${nPend+nDudas}</div><div class="l">Pendientes + dudas</div></div>
+  <div class="kpi ex"><div class="n">${nExtra}</div><div class="l">Extras a cotizar aparte</div></div>
+  <div class="kpi"><div class="n">${bizLeft}</div><div class="l">Días hábiles al 28/09</div></div>`;
+document.getElementById("pillTxt").textContent = `EN EJECUCIÓN · ${pct}% ENSAYOS`;
+document.getElementById("resumenTxt").innerHTML =
+ `Al corte del <b>06/09</b> el avance se concentra en <b>inspecciones visuales externas</b> (${EQ.filter(i=>i.tests.some(t=>t.ab==="VTe"&&t.st==="realizado")).length} equipos con VT ext realizada) y primeras VT internas con video.
+  El grueso de <b>LP, réplicas+durezas, RT y UT</b> queda programado a partir del <b>lunes 07/09</b>, sujeto a liberación de frentes por APASA.
+  Los condicionantes dominantes son <b>retiro de aislación (As)</b>, <b>andamios (AN)</b> —obligatorios para los Rx de cañerías—, <b>aperturas de equipo (Ap)</b> e ingresos a <b>espacio confinado (EC)</b>.
+  Hay <b>${nDudas} ítems con dudas</b> de lectura o alcance a confirmar y <b>3 extras fuera de pliego</b> que se cotizan aparte.`;
+
+/* ---------- paneo general ---------- */
+const TEC_CANON = {"VT ext":"Insp. visual externa (VT ext)","VT int":"Insp. visual interna (VT int)",
+  "LP/PM":"Líquidos penetrantes / PM","LP":"Líquidos penetrantes / PM",
+  "Réplicas+Durezas":"Réplicas + durezas","Indentación":"Indentación (tensión de fluencia)",
+  "RT":"Radiografía (Rx)","RT (Rx)":"Radiografía (Rx)","UT":"Ultrasonido (UT)"};
+const TEC_ORDER = ["Insp. visual externa (VT ext)","Insp. visual interna (VT int)","Líquidos penetrantes / PM",
+  "Réplicas + durezas","Indentación (tensión de fluencia)","Radiografía (Rx)","Ultrasonido (UT)"];
+function tally(tests){
+  const done=tests.filter(t=>t.st==="realizado").length;
+  return [done, tests.length];
+}
+(function paneo(){
+  const reqTests = ALL.flatMap(i=>i.tests.filter(t=>t.st!=="extra"));
+  const byTec = {};
+  for(const t of reqTests){const k=TEC_CANON[t.k]||t.k;(byTec[k]=byTec[k]||[]).push(t);}
+  document.getElementById("panTec").innerHTML = TEC_ORDER.filter(k=>byTec[k]).map(k=>{
+    const [d,tot]=tally(byTec[k]), p=tot?Math.round(100*d/tot):0;
+    return `<div class="pan"><div class="t">${k}</div><div class="n">${d} <small>de ${tot} · ${p}%</small></div>
+      <div class="pbar"><i style="width:${p}%"></i></div></div>`;}).join("");
+  const eqT = EQ.filter(i=>!i.extra).flatMap(i=>i.tests.filter(t=>t.st!=="extra"));
+  const caT = CA.flatMap(i=>i.tests.filter(t=>t.st!=="extra"));
+  const rows=[["Equipos",eqT,EQ.filter(i=>!i.extra)],["Cañerías",caT,CA],["TOTAL PARADA",reqTests,ALL.filter(i=>!i.extra)]];
+  document.getElementById("panTot").innerHTML = rows.map(([lbl,ts,items],ix)=>{
+    const [d,tot]=tally(ts), p=tot?Math.round(100*d/tot):0;
+    const closed=items.filter(i=>i.completo).length;
+    return `<div class="pan ${ix===2?"total":""}"><div class="t">${lbl}</div>
+      <div class="n">${d} <small>de ${tot} ensayos · ${p}%</small></div>
+      <div class="pbar"><i style="width:${p}%"></i></div>
+      <div class="sub">${closed} de ${items.length} ítems cerrados</div></div>`;}).join("");
+})();
+
+/* ---------- filtros ---------- */
+const state={q:"",area:"todas",estado:"todos",cond:"todas"};
+function mkBtns(el,opts,key){
+  opts.forEach(([v,l])=>{const b=document.createElement("button");b.className="fbtn"+(state[key]===v?" on":"");b.textContent=l;b.dataset.v=v;
+    b.onclick=()=>{state[key]=v;el.querySelectorAll(".fbtn").forEach(x=>x.classList.toggle("on",x.dataset.v===v));render();};el.appendChild(b);});
+}
+mkBtns(document.getElementById("fArea"),[["todas","Todas"],["10","Área 10"],["40","Área 40"],["60","Área 60"],["—","Extras"]],"area");
+mkBtns(document.getElementById("fEstado"),[["todos","Todos"],["CERRADO","Cerrados"],["EN CURSO","En curso"],["ABIERTO","Abiertos"],["CONDICIONADO","Condicionados"],["ADICIONAL A COTIZAR","Adicionales"]],"estado");
+mkBtns(document.getElementById("fCond"),[["todas","Todas"],["AN","AN"],["As","As"],["P","P"],["EC","EC"],["Ap","Ap"]],"cond");
+document.getElementById("q").addEventListener("input",e=>{state.q=e.target.value.trim().toLowerCase();render();});
+function pass(it){
+  if(state.q && !it.tag.toLowerCase().includes(state.q)) return false;
+  if(state.area!=="todas" && it.area!==state.area) return false;
+  if(state.cond!=="todas" && !it.cond.includes(state.cond)) return false;
+  if(state.estado!=="todos" && it.ef[0]!==state.estado) return false;
+  return true;
+}
+
+/* ---------- render gantt ---------- */
+function axisHTML(){
+  let h='<div class="lbl" style="border-right:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center">Ítem · ensayos <span style="font-weight:400">SEPTIEMBRE 2026</span></div><div class="axis">';
+  for(let i=0;i<NDAYS;i++){const d=new Date(D0);d.setDate(d.getDate()+i);
+    const nw=NOWORK.has(isoOf(d))?" nowork-h":"";
+    h+=`<div class="d${d.getDay()===1?" mon":""}${nw}" style="left:${100*i/NDAYS}%" ${nw?'title="No se trabajó"':''}>${d.getDate()}</div>`;}
+  const ti=idx(CORTE)+1;
+  h+=`<span class="today-lbl" style="left:${100*ti/NDAYS}%;top:6px">BASE 06/09</span>`;
+  const hi=Math.max(0,Math.min(NDAYS,idx(HOY)));
+  if(idx(HOY)>=0 && idx(HOY)<=NDAYS)
+    h+=`<span class="today-lbl" style="left:${100*hi/NDAYS}%;top:22px;color:var(--done)">HOY ${fmt(HOY)}</span>`;
+  return h+"</div>";
+}
+function laneBg(){
+  let h="";
+  for(let i=0;i<NDAYS;i++){const d=new Date(D0);d.setDate(d.getDate()+i);
+    if(NOWORK.has(isoOf(d))) h+=`<div class="nowork" style="left:${100*i/NDAYS}%;width:${100/NDAYS}%"></div>`;
+    if(d.getDay()===1) h+=`<div class="dl" style="left:${100*i/NDAYS}%"></div>`;}
+  const ti=idx(CORTE)+1; // fin del 06/09 (base pizarras)
+  h+=`<div class="today" style="left:${100*ti/NDAYS}%"></div>`;
+  const hi=idx(HOY);     // hoy (dinámico)
+  if(hi>=0 && hi<=NDAYS) h+=`<div class="hoy" style="left:${100*hi/NDAYS}%"></div>`;
+  return h;
+}
+function libHTML(it){
+  const e=it.enzo;
+  let d=null, txt="";
+  if(e && e.lib_iso){ d=isoDate(e.lib_iso); txt=e.lib; }
+  else if(it.libDate){ d=it.libDate; txt=it.liberacion; }
+  if(!d) return "";
+  const li=idx(d);
+  if(li<0 || li>NDAYS) return "";
+  return `<div class="libmark" style="left:${100*(li+0.5)/NDAYS}%" data-tt="${esc("Liberación del frente — "+it.tag+"\nFecha: "+(txt||fmt(d)))}"></div>`;
+}
+function barHTML(it){
+  let h="", doneCount=0;
+  for(const t of it.tests){
+    if(t.st==="realizado"){
+      const li=idx(CORTE)+1 - (it.tests.filter(x=>x.st==="realizado").length-doneCount)*1.15; doneCount++;
+      h+=`<div class="bar st-realizado" style="left:calc(${100*(li-1)/NDAYS}% + 2px);width:${100/NDAYS-0.3}%" data-tt="${esc(ttTxt(it,t,"Realizado (antes del corte; fecha exacta s/pizarra)"))}">✔ ${t.ab}</div>`;
+    }else{
+      const li=idx(t.start), w=100/NDAYS;
+      const cls = t.st==="extra"?"st-extra":(t.st==="pendiente"||t.dudas?"st-pendiente":"st-a_realizar");
+      const lbl=(t.st==="pendiente"?"! ":"")+(t.dudas&&t.st!=="pendiente"?"? ":"")+t.ab;
+      const src = t.enzoBar ? "Cronograma Enzo: "+fmt(t.start) : "Tentativo: "+fmt(t.start);
+      h+=`<div class="bar ${cls}${t.enzoBar?" enzo":""}" style="left:calc(${100*li/NDAYS}% + 2px);width:${w-0.3}%;top:${t._lane*19+5}px" data-tt="${esc(ttTxt(it,t,src))}">${lbl}</div>`;
+    }
+  }
+  return h;
+}
+function ttTxt(it,t,extra){
+  return `${it.tag} · ${t.k}\nPliego: ${t.req||"—"}\nPizarra: ${t.piz||t.raw||"sin marca"}\n${extra}${it.liberacion?"\nLiberación: "+it.liberacion:""}`;
+}
+const esc=s=>s.replace(/"/g,"&quot;").replace(/</g,"&lt;");
+function lanes(it){ // asigna sub-carriles para barras del mismo día
+  const byDay={};
+  it.tests.filter(t=>t.st!=="realizado").forEach(t=>{const k=+t.start;byDay[k]=byDay[k]||0;t._lane=byDay[k]++;});
+  return Math.max(1,...it.tests.filter(t=>t.st!=="realizado").map(t=>t._lane+1));
+}
+/* ---------- frentes: falta andamio / falta quitar aislación ---------- */
+const OV = new Map();           // slug -> {an, as} (true = FALTA)
+const LSKEY = "frentes_pp2026";
+function loadOV(){ try{ const j=JSON.parse(localStorage.getItem(LSKEY)||"{}"); for(const k in j) OV.set(k, j[k]); }catch(e){} }
+function persistOV(){ try{ const o={}; OV.forEach((v,k)=>o[k]=v); localStorage.setItem(LSKEY, JSON.stringify(o)); }catch(e){} }
+loadOV();
+const slug = t => t.replace(/[^A-Za-z0-9]+/g,"-");
+function eff(it){
+  const o = OV.get(slug(it.tag)) || {};
+  return {needAN: it.cond.includes("AN"), needAS: it.cond.includes("As"),
+          an: o.an!==undefined ? !!o.an : true,
+          as: o.as!==undefined ? !!o.as : true};
+}
+function frenteHTML(it){
+  const f = eff(it);
+  if(!f.needAN && !f.needAS) return ["",""];
+  let b="";
+  const sl = slug(it.tag);
+  if(f.needAN) b+=`<button class="tgl ${f.an?"falta":"ok"}" data-sl="${sl}" data-k="an" title="Tocar para cambiar">${f.an?"⛔ Falta andamio":"✔ Andamio listo"}</button>`;
+  if(f.needAS) b+=`<button class="tgl ${f.as?"falta":"ok"}" data-sl="${sl}" data-k="as" title="Tocar para cambiar">${f.as?"⛔ Falta quitar aislación":"✔ Sin aislación"}</button>`;
+  const libre = (!f.needAN||!f.an) && (!f.needAS||!f.as);
+  const badge = libre ? '<span class="badge lib">FRENTE LIBERADO</span>' : '<span class="badge bloq">FRENTE BLOQUEADO</span>';
+  return [`<div class="tgls">${b}</div>`, badge];
+}
+function saveFrente(sl, o){
+  OV.set(sl, o); persistOV(); render();
+}
+document.addEventListener("click", e=>{
+  const b = e.target.closest(".tgl"); if(!b) return;
+  const sl = b.dataset.sl, k = b.dataset.k;
+  const it = ALL.find(x=>slug(x.tag)===sl); if(!it) return;
+  const f = eff(it);
+  const o = {an: f.an, as: f.as};
+  o[k] = !o[k];
+  saveFrente(sl, o);
+});
+{ const st = document.getElementById("dbState");
+  if(st) st.innerHTML = "Botones de frente: se guardan <b>en este dispositivo</b>"; }
+
+function rowHTML(it){
+  const nl=lanes(it);
+  const laneH=Math.max(46, nl*19+10);
+  const chips=it.tests.map(t=>{
+    const cls=t.st==="extra"?"st-extra":(t.st==="pendiente"?"st-pendiente":(t.st==="realizado"?"st-realizado":"st-a_realizar"));
+    return `<span class="chip ${cls}">${t.st==="realizado"?"✔":""}${t.ab}</span>`;}).join("");
+  const conds=it.cond.map(c=>`<span class="cond ${["AN","As","P"].includes(c)?"hot":""}">${c}</span>`).join("");
+  const [tgls, fBadge] = frenteHTML(it);
+  let enzoBadge="";
+  if(it.enzo){
+    const vmap={USAR:["enzo-usar","ENZO ✓"],PARCIAL:["enzo-parcial","ENZO parc."],REVISAR:["enzo-revisar","ENZO ⚠ revisar"]};
+    const vm=vmap[it.enzo.verdict]; if(vm) enzoBadge=`<span class="badge ${vm[0]}" title="${esc(it.enzo.usable||it.enzo.nota)}">${vm[1]}</span>`;
+  }
+  const badges=`<span class="badge ${it.ef[1]}">${it.ef[0]}</span>`+enzoBadge+fBadge+(it.duda&&it.ef[0]!=="CONDICIONADO"?'<span class="badge duda">¿?</span>':"");
+  return `<div class="g-row ${it.completo?"done-row":""}" data-tag="${esc(it.tag)}">
+    <div class="row-head" tabindex="0" role="button" aria-expanded="false">
+      <div class="tagline"><span class="tag">${esc(it.tag)}</span><span class="prog">${it.ndone}/${it.nreq}</span>${badges}<span class="conds">${conds}</span></div>
+      <div class="chips">${chips}</div>
+      ${tgls}
+      ${it.mat?`<div class="mat">${esc(it.mat)}</div>`:""}
+      ${it.enzo?`<div class="ezrow"><span class="ez-fecha">📅 Fecha usable: <b>${esc(it.enzo.usable||"—")}</b></span>${it.enzo.nota&&it.enzo.nota!=="—"?`<span class="ez-nota">${esc(it.enzo.nota)}</span>`:""}</div>`:""}
+    </div>
+    <div class="lane" style="min-height:${laneH}px">${laneBg()}${libHTML(it)}${barHTML(it)}</div>
+    <div class="detail"><div class="cols">
+      <div><h4>Descripción</h4><p>${esc(it.desc||"—")}${it.mat?` · <span class="mono" style="font-size:11.5px">${esc(it.mat)}</span>`:""}</p>
+      <h4>Comentario pizarra</h4><p>${esc(it.coment||"—")}</p><h4>Liberación</h4><p class="mono">${esc(it.liberacion||"—")}</p></div>
+      <div><h4>Alcance según pliego (Anexo I)</h4><p>${esc(it.alcance||"—")}</p>
+      <h4>Estado por ensayo</h4><p>${it.tests.map(t=>`<span class="mono" style="font-size:11.5px">${t.ab}</span>: ${esc(t.piz||t.raw||"sin marca")}`).join(" · ")}</p>
+      ${it.enzo?`<h4>Cruce con cronograma de Enzo</h4><p><b>${it.enzo.verdict}</b> · Liberación ${esc(it.enzo.lib||"—")} · E1 ${esc(it.enzo.e1||"—")} · E2 ${esc(it.enzo.e2||"—")}${it.enzo.ing?` · INGYSOL ${esc(it.enzo.ing)}`:""}<br><b>Fecha usable:</b> ${esc(it.enzo.usable||"—")}<br>${esc(it.enzo.nota||"")}</p>`:""}</div>
+    </div></div></div>`;
+}
+function groupRender(el,items,areaNames){
+  let h=`<div class="g-head">${axisHTML()}</div>`;
+  const order=["10","40","60","—"];
+  for(const a of order){
+    const g=items.filter(i=>i.area===a&&pass(i));
+    if(!g.length) continue;
+    h+=`<div class="grp">${areaNames[a]||("Área "+a)} · ${g.length} ítems</div>`;
+    h+=g.map(rowHTML).join("");
+  }
+  el.innerHTML=h||"<p style='padding:20px'>Sin resultados con los filtros actuales.</p>";
+}
+function render(){
+  groupRender(document.getElementById("gEq"),EQ,{"10":"Área 10","40":"Área 40","60":"Área 60","—":"Extras fuera de pliego"});
+  groupRender(document.getElementById("gCa"),CA,{"10":"Área 10","40":"Área 40"});
+  document.getElementById("cntEq").textContent=`${EQ.filter(pass).length} de ${EQ.length} · agrupados por área`;
+  document.getElementById("cntCa").textContent=`${CA.filter(pass).length} de ${CA.length} líneas`;
+  document.querySelectorAll(".row-head").forEach(rh=>{
+    const open=()=>{const d=rh.parentElement.querySelector(".detail");const o=d.classList.toggle("open");rh.setAttribute("aria-expanded",o);};
+    rh.addEventListener("click",ev=>{if(ev.target.closest(".tgl"))return;open();});
+    rh.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open();}});
+  });
+}
+render();
+
+/* ---------- tooltip ---------- */
+const tt=document.getElementById("tt");
+document.addEventListener("mouseover",e=>{
+  const b=e.target.closest("[data-tt]");
+  if(!b){tt.style.display="none";return;}
+  const [first,...rest]=b.dataset.tt.split("\n");
+  tt.innerHTML=`<div class="t">${first}</div>`+rest.join("<br>");
+  tt.style.display="block";
+});
+document.addEventListener("mousemove",e=>{
+  if(tt.style.display!=="block")return;
+  const x=Math.min(e.clientX+14,innerWidth-360), y=Math.min(e.clientY+16,innerHeight-140);
+  tt.style.left=x+"px"; tt.style.top=y+"px";
+});
+
+/* ---------- condiciones ---------- */
+const CONDNAMES={AN:"Andamio",As:"Retiro / reposición de aislación",P:"Pintura (interferencia LP)",EC:"Espacio confinado",Ap:"Apertura de equipo",IP:"Informe previo",H:"Haulotte"};
+let ch="<thead><tr><th>Condición</th><th>Ítems afectados</th><th>Observación</th></tr></thead><tbody>";
+for(const c of CONDS){
+  const its=ALL.filter(i=>i.cond.includes(c));
+  if(!its.length) continue;
+  const obs={AN:"⚠ El andamio debe estar LISTO antes del ensayo — obligatorio para los Rx de cañerías (nota de pizarra).",
+    As:"⚠ Avisar cuando el equipo/línea esté SIN aislación para poder ensayarlo (retiro por APASA en varias líneas según pliego).",
+    P:"⚠ Definir si se hacen tintas penetrantes ENCIMA de la pintura o se retira. Nota de pizarra: «LP con P: chequear qué queda sin hacer → lunes».",
+    EC:"⚠ Ingreso a equipo: requiere PERMISO DE TRABAJO ESPECIAL, mediciones previas e iluminación estanca propia.",
+    Ap:"Tapones, manholes o cabezales que debe abrir APASA antes del ensayo.",
+    IP:"Emitir/considerar informe previo antes de la liberación.",
+    H:"Plataforma elevadora."}[c]||"";
+  ch+=`<tr><td><b>${c}</b> · ${CONDNAMES[c]} <span class="prog">(${its.length})</span></td><td>${its.map(i=>`<span class="tag" style="font-weight:600">${esc(i.tag)}</span>`).join(" · ")}</td><td>${obs}</td></tr>`;
+}
+document.getElementById("tCond").innerHTML=ch+"</tbody>";
+
+/* ---------- cruce con cronograma de Enzo ---------- */
+(function cruce(){
+  const items = ALL.filter(i=>i.enzo);
+  const nU=items.filter(i=>i.enzo.verdict==="USAR").length;
+  const nP=items.filter(i=>i.enzo.verdict==="PARCIAL").length;
+  const nR=items.filter(i=>i.enzo.verdict==="REVISAR").length;
+  document.getElementById("cruceKpis").innerHTML=
+    `<div class="pan"><div class="t" style="color:var(--done)">USAR — fecha vigente</div><div class="n">${nU}</div><div class="sub">adoptar la fecha de Enzo</div></div>
+     <div class="pan"><div class="t" style="color:var(--curso)">PARCIAL — ya avanzado</div><div class="n">${nP}</div><div class="sub">usar Enzo solo para lo que falta</div></div>
+     <div class="pan"><div class="t" style="color:var(--warn)">REVISAR — conflicto</div><div class="n">${nR}</div><div class="sub">confirmar con Enzo antes de usar</div></div>`;
+  const vcol={USAR:"var(--done)",PARCIAL:"var(--curso)",REVISAR:"var(--warn)"};
+  const rows=items.map(i=>{
+    const e=i.enzo;
+    return `<tr>
+      <td><b class="mono" style="font-size:12px">${esc(i.tag)}</b></td>
+      <td class="mono" style="font-size:12px">${esc(e.lib||"—")}</td>
+      <td class="mono" style="font-size:12px">${esc(e.e1||"—")}</td>
+      <td class="mono" style="font-size:12px">${esc(e.e2||"—")}</td>
+      <td class="mono" style="font-size:12px">${esc(e.ing||"—")}</td>
+      <td><b style="color:${vcol[e.verdict]}">${e.verdict}</b></td></tr>`;
+  }).join("");
+  document.getElementById("tCruce").innerHTML=
+    "<thead><tr><th>Ítem</th><th>Liberación</th><th>Etapa 1</th><th>Etapa 2</th><th>INGYSOL</th><th>¿Usable?</th></tr></thead><tbody>"+rows+
+    "<tr><td colspan='6' style='color:var(--muted);font-size:12px;padding-top:10px'>La <b>fecha usable</b> y la <b>nota</b> de cada ítem están en las tablas de Equipos y Cañerías. Fuera del cruce: <b>40-FS-12</b> y <b>10-BO-153</b> (adicionales, no están en el cronograma de Enzo) · <b>10-V-154</b> figura en Enzo pero está excluido en el pliego Rev.1.</td></tr></tbody>";
+})();
+
+/* ---------- consultas a Enzo ---------- */
+document.getElementById("tEnzo").innerHTML="<thead><tr><th style='width:170px'>Ítem</th><th>Consulta</th><th style='width:200px'>Respuesta / definición</th></tr></thead><tbody>"+
+ (DB.consultas||[]).map((c,i)=>`<tr><td><span class="duda-n">${String(i+1).padStart(2,"0")}</span> · <b class="mono" style="font-size:12px">${esc(c.item)}</b></td><td>${esc(c.tema)}</td><td style="color:var(--muted)">pendiente</td></tr>`).join("")+"</tbody>";
+
+</script>
