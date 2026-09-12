@@ -1566,7 +1566,8 @@ const DB = {
      "req": "X (5 costuras 12\")",
      "piz": "Realizado",
      "raw": "✔✔",
-     "estado": "realizado"
+     "estado": "realizado",
+     "label": "RX/UT"
     }
    },
    "liberacion": "",
@@ -1574,7 +1575,7 @@ const DB = {
     "AN",
     "As"
    ],
-   "coment": "As; coordinar c/ Marian · NOVEDAD 11/09: colocaron el ANDAMIO. PENDIENTE: hacer el LP y el UT.",
+   "coment": "As; coordinar c/ Marian · NOVEDAD 11/09: colocaron el ANDAMIO. El RX se hizo por UT (RX/UT). PENDIENTE: el LP.",
    "alcance": "VT 100% del recorrido con retiro total de aislación (APASA). RM: 2 pts (1 salida del 10-BO-152 + 1 punto medio). RT 100% costuras a tope visibles (5 de 12\") + PT en las 5. Indentación en los 2 pts de réplicas.",
    "completo": false,
    "extra": false,
@@ -2895,7 +2896,7 @@ function normalize(list){
       if(st==="extra"||it.extra) st = st==="realizado"?"realizado":"extra";
       const raw=v.raw||"";
       const dudas=/¿|VER|A confirmar|Chequear/i.test(raw)||/¿/.test(v.req||"");
-      tests.push({k, ab:ABBR[k]||k, req:v.req, piz:v.piz, raw, st, dudas, dispo:parseDispo(raw)});
+      tests.push({k, ab:v.label||ABBR[k]||k, req:v.req, piz:v.piz, raw, st, dudas, dispo:parseDispo(raw)});
     }
     const reqT=tests.filter(t=>t.st!=="extra");
     const done=reqT.filter(t=>t.st==="realizado").length;
