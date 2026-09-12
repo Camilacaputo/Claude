@@ -144,6 +144,13 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
 .gcta small{display:block;font-weight:500;font-size:11.5px;opacity:.9;margin-top:2px}
 .gcta .arw{float:right;font-size:18px}
 .section-h{margin:22px 4px 2px;font-size:13px;font-weight:800;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.4px}
+.cfold{margin:22px 0 4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.cfold>summary{list-style:none;cursor:pointer;padding:12px 14px;font-size:13px;font-weight:800;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.4px}
+.cfold>summary::-webkit-details-marker{display:none}
+.cfold>summary::before{content:"▸ ";color:var(--accent)}
+.cfold[open]>summary::before{content:"▾ "}
+.cfold #consultas{padding:0 14px 12px}
+.cfold #consultasN{color:var(--muted);font-weight:600}
 .consulta{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--warn);
   border-radius:10px;padding:9px 11px;margin:8px 0;font-size:13px;box-shadow:var(--shadow)}
 .consulta b{color:var(--warn)}
@@ -183,9 +190,11 @@ header{position:sticky;top:0;z-index:20;background:var(--surface);
 <div class="summary" id="summary"></div>
 <div class="wrap"><div class="list" id="list"></div></div>
 
-<div class="wrap" id="consultasWrap">
-  <div class="section-h">Consultas a Enzo</div>
-  <div id="consultas"></div>
+<div class="wrap">
+  <details class="cfold" id="consultasWrap">
+    <summary>Consultas a Enzo <span id="consultasN"></span></summary>
+    <div id="consultas"></div>
+  </details>
 </div>
 
 <div class="foot">
@@ -424,6 +433,7 @@ $('#q').oninput=e=>{ Q=e.target.value.trim(); render(); };
 
 /* consultas + stamp */
 $('#consultas').innerHTML=DB.consultas.map(c=>`<div class="consulta"><b>${esc(c.item)}</b> — ${esc(c.tema)}</div>`).join('')||'<div class="empty">Sin consultas pendientes.</div>';
+$('#consultasN').textContent='('+DB.consultas.length+')';
 $('#stamp').textContent=HOY.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
 $('#sub').textContent='Parada de planta · END · al '+HOY.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'});
 render();
