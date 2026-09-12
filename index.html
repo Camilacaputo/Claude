@@ -411,18 +411,18 @@ const DB = {
     },
     "VT int": {
      "req": "X (spot)",
-     "piz": "A realizar (SPOT previa 08/09 · postlimpieza 09/09)",
-     "raw": "SPOT ✔ previa 08/09 · postlimpieza 09/09",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     }
    },
    "liberacion": "07/09",
    "cond": [
     "Ap"
    ],
-   "coment": "Ap; VT int DOS etapas (antes y después de la limpieza) · NOVEDAD 09/09: falta la VT interna POSTLIMPIEZA (A y B) → se hace el 09/09.",
+   "coment": "Ap; VT int DOS etapas (antes y después de la limpieza) · NOVEDAD 12/09: inspección visual interna finalizada en ambos equipos (A y B), incluida la etapa posterior a la limpieza.",
    "alcance": "VT int por apertura de cabezales, videoscopio, DOS etapas obligatorias: previa al lavado del mazo y posterior al lavado. Muestreo aleatorio (spot) en campo.",
-   "completo": false,
+   "completo": true,
    "extra": false,
    "rm_rojo": false
   },
@@ -715,9 +715,9 @@ const DB = {
     },
     "VT int": {
      "req": "X (spot)",
-     "piz": "A realizar (SPOT def. apertura)",
-     "raw": "SPOT ✔ def. apertura",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "LP/PM": {
      "req": "ANUL. (pintado)",
@@ -738,9 +738,9 @@ const DB = {
     "EC",
     "P"
    ],
-   "coment": "Ap; EC: se puede ingresar solo desde la boca de inspección ¿? · LP NO SE HACE — equipo pintado (decisión de Enzo). · NOVEDAD 12/09: UT realizado (A y B). Equipos ABIERTOS → VT interna a realizar.",
+   "coment": "Ap; EC: se puede ingresar solo desde la boca de inspección ¿? · LP NO SE HACE — equipo pintado (decisión de Enzo). · NOVEDAD 12/09: inspección visual interna y ultrasonido realizados en ambos recipientes (A y B).",
    "alcance": "UT: costuras de fijación de cabezales con casquetes de 8\" + conexiones 1×1½\", 1×4\", 1×6\". PT: 100% conexiones de cabezales (las de UT) + carcasa: 1×3\" y 2×4\".",
-   "completo": false,
+   "completo": true,
    "extra": false,
    "rm_rojo": false
   },
@@ -759,9 +759,9 @@ const DB = {
     },
     "VT int": {
      "req": "X (spot)",
-     "piz": "A realizar (def. apertura)",
-     "raw": "✔ def. apertura",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "LP/PM": {
      "req": "ANUL. (pintado)",
@@ -781,9 +781,9 @@ const DB = {
     "Ap",
     "P"
    ],
-   "coment": "LP NO SE HACE — equipo pintado (decisión de Enzo). · NOVEDAD 12/09: UT realizado (A y B). Equipos ABIERTOS → VT interna a realizar.",
+   "coment": "LP NO SE HACE — equipo pintado (decisión de Enzo). · NOVEDAD 12/09: inspección visual interna y ultrasonido realizados en ambos recipientes (A y B).",
    "alcance": "UT: costuras de soldadura de cabezales y uniones de casquetes de 10\" + 2 conexiones de 3\". PT: conexiones de cabezal (las de UT) + carcasa: 1×3\" y 2×4\".",
-   "completo": false,
+   "completo": true,
    "extra": false,
    "rm_rojo": false
   },
@@ -833,15 +833,15 @@ const DB = {
    "ensayos": {
     "VT ext": {
      "req": "X",
-     "piz": "A realizar (Chequear si abrieron)",
-     "raw": "Chequear si abrieron ✔",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "VT int": {
-     "req": "(X) tapones",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "a_realizar"
+     "req": "ANUL. (def. Enzo)",
+     "piz": "No se hace — decisión de Enzo",
+     "raw": "No se hace — decisión de Enzo",
+     "estado": "anulado"
     },
     "Réplicas+Durezas": {
      "req": "X (3+1 pts)",
@@ -867,7 +867,7 @@ const DB = {
     "AN",
     "As"
    ],
-   "coment": "Rx en caños a ↑ presión (x4) ¿? · NOVEDAD 12/09: réplicas realizadas. Falta que retiren un pedazo de aislación.",
+   "coment": "Rx en caños a ↑ presión (x4) ¿? · NOVEDAD 12/09: inspección visual externa realizada, incluida la zona de aislación de la junta de expansión. Réplicas realizadas. Por decisión de Enzo, el equipo no lleva inspección visual interna.",
    "alcance": "VT int: por remoción de tapones con videoscopio. VT ext: 100% superficie con retiro de aislación. RM: 3 obligatorias (1 cabezal cónico + 2 antes/después de junta de expansión) + 4ª sobre la junta si es viable. PT: boquilla-carcasa 1×4\" y 1×6\" + 100% del corrugado de la junta de expansión.",
    "completo": false,
    "extra": false,
@@ -881,10 +881,10 @@ const DB = {
    "mat": "",
    "ensayos": {
     "VT ext": {
-     "req": "",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "anulado"
+     "req": "X",
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "VT int": {
      "req": "(X) spot",
@@ -899,7 +899,7 @@ const DB = {
     "As",
     "IP"
    ],
-   "coment": "As; IP; sacar tapones; VT ext: la junta de expansión está deteriorada · NOVEDAD 06/09: depende de cuándo ABRAN el equipo.",
+   "coment": "As; IP; sacar tapones; VT ext: la junta de expansión está deteriorada · NOVEDAD 12/09: inspección visual externa realizada. La inspección visual interna queda pendiente de la apertura del equipo.",
    "alcance": "Condicionado al desmontaje de la tapa superior: VT int spot con videoscopio de tubos del intercambiador superior + evaluación de juntas, internos de cabezales, placas porta-tubos y tapas de cierre.",
    "completo": false,
    "extra": false,
@@ -913,10 +913,10 @@ const DB = {
    "mat": "",
    "ensayos": {
     "VT int": {
-     "req": "X",
-     "piz": "A realizar (al abrir)",
-     "raw": "✔ al abrir",
-     "estado": "a_realizar"
+     "req": "ANUL. (def. Enzo)",
+     "piz": "No se hace — decisión de Enzo",
+     "raw": "No se hace — decisión de Enzo",
+     "estado": "anulado"
     },
     "Réplicas+Durezas": {
      "req": "X (9 pts)",
@@ -942,7 +942,7 @@ const DB = {
     "Ap",
     "As"
    ],
-   "coment": "As · NOVEDAD 12/09: en teoría se abre el 13/09.",
+   "coment": "As · NOVEDAD 12/09: por decisión de Enzo, el equipo no lleva inspección visual interna. Apertura prevista, en principio, para el 13/09.",
    "alcance": "RM desde cara interna, tras demolición/retiro del refractario: 3 pts cuello cilíndrico + 3 pts brida + 3 pts casquete. (La tabla del pto. 6 marca también RT, pero el Anexo I no lo detalla → confirmar).",
    "completo": false,
    "extra": false,
@@ -955,17 +955,11 @@ const DB = {
    "desc": "Reactor de síntesis",
    "mat": "Tee inferior A-105 (A.C.)",
    "ensayos": {
-    "VT ext": {
-     "req": "X",
-     "piz": "",
-     "raw": "",
-     "estado": "pendiente"
-    },
     "VT int": {
-     "req": "(X) apertura",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "a_realizar"
+     "req": "ANUL. (def. Enzo)",
+     "piz": "No se hace — decisión de Enzo",
+     "raw": "No se hace — decisión de Enzo",
+     "estado": "anulado"
     },
     "Réplicas+Durezas": {
      "req": "X (3 pts)",
@@ -999,7 +993,7 @@ const DB = {
     "IP",
     "P"
    ],
-   "coment": "Ap; sacan mat. refractario → todo se hace del lado interno; IP; EC · LP NO SE HACE — equipo pintado (decisión de Enzo). · NOVEDAD 12/09: el volumétrico va como Rx O UT (no por separado).",
+   "coment": "Ap; sacan mat. refractario → todo se hace del lado interno; IP; EC · LP NO SE HACE — equipo pintado (decisión de Enzo). · NOVEDAD 12/09: réplicas realizadas. Por decisión de Enzo, el equipo no lleva inspección visual interna ni inspección visual externa. El ensayo volumétrico se ejecuta indistintamente por Rx o UT.",
    "alcance": "VT int condicionada a apertura real (tapa + basket). RM: 3 pts equidistantes sobre Tee inferior. RT (o PAUT/TOFD, a cotizar factibilidad): 3 uniones a tope de la Tee inferior de 5\", 6\" y 9\". PT: 100% de las soldaduras de la Tee evaluadas por RT/UT.",
    "completo": false,
    "extra": false,
@@ -1014,9 +1008,9 @@ const DB = {
    "ensayos": {
     "VT ext": {
      "req": "X",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "VT int": {
      "req": "X",
@@ -1057,7 +1051,7 @@ const DB = {
     "IP",
     "P"
    ],
-   "coment": "Ap; P; IP ver; As · LP NO SE HACE — equipo pintado (decisión de Enzo). · NOVEDAD 12/09: equipos ABIERTOS → VT interna a realizar.",
+   "coment": "Ap; P; IP ver; As · LP NO SE HACE — equipo pintado (decisión de Enzo). · NOVEDAD 12/09: inspección visual externa realizada. Equipos abiertos: resta la inspección visual interna.",
    "alcance": "VT int: aprovechando apertura y vaciado de catalizador. VT ext: retiro de aislación buscando CUI. RM: 4 pts cara interna a distintos niveles. RT: costuras constructivas de la envolvente (DI 66\"). PT desde lado interno (pads externos): 2×3/4\", 1×1½\", 2×6\", 1×12\", 1×20\".",
    "completo": false,
    "extra": false,
@@ -1113,7 +1107,7 @@ const DB = {
     "As",
     "EC"
    ],
-   "coment": "As; Ap; EC: réplicas en el interior; ver si se saca la pintura (¿EXO?) · NOVEDAD 12/09: VT externa realizada. Se abre el domingo 13/09.",
+   "coment": "As; Ap; EC: réplicas en el interior; ver si se saca la pintura (¿EXO?) · NOVEDAD 12/09: inspección visual externa realizada. Apertura prevista para el domingo 13/09.",
    "alcance": "Mismo criterio técnico que 40-R-079 A/B: RM 4 pts internos a distintas alturas; RT costuras circunf./longitudinales (DI 66\"); PT desde cara interna: 2×3/4\", 1×1½\", 2×6\", 1×12\", 1×20\".",
    "completo": false,
    "extra": false,
@@ -1149,7 +1143,7 @@ const DB = {
    "cond": [
     "Ap"
    ],
-   "coment": "Igual que 40-R-079 (pizarra) · NOVEDAD 12/09: réplicas y durezas realizadas.",
+   "coment": "Igual que 40-R-079 (pizarra) · NOVEDAD 12/09: réplicas y durezas realizadas. Resta retirar las tapas de inspección. PENDIENTE: apertura del equipo.",
    "alcance": "RM: 18 puntos totales – 9 puntos por nivel en 2 niveles de altura.",
    "completo": true,
    "extra": false,
@@ -1192,7 +1186,7 @@ const DB = {
     "AN",
     "Ap"
    ],
-   "coment": "AN; NO van a sacar la aislación (decisión APASA) · NOVEDAD 12/09: las réplicas se hacen desde el INTERIOR del tanque → se debe abrir.",
+   "coment": "AN; NO van a sacar la aislación (decisión APASA) · NOVEDAD 12/09: las réplicas se ejecutan desde el interior del tanque. PENDIENTE: apertura del equipo.",
    "alcance": "Agregado en rojo en Rev.1 (sin sección propia en Anexo I): VT ext + VT int + réplicas según tabla pto. 6. No se retira la aislación → definir alcance real de VT ext/RM.",
    "completo": false,
    "extra": false,
@@ -1507,9 +1501,9 @@ const DB = {
     },
     "Réplicas+Durezas": {
      "req": "X (3 pts)",
-     "piz": "Realizado (08/09)",
-     "raw": "✔✔ 08/09",
-     "estado": "realizado"
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
     },
     "Indentación": {
      "req": "X (3 pts)",
@@ -1519,9 +1513,9 @@ const DB = {
     },
     "LP": {
      "req": "X (9 costuras)",
-     "piz": "Realizado",
-     "raw": "✔✔",
-     "estado": "realizado"
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
     },
     "RT (Rx)": {
      "req": "X (9 costuras 12\")",
@@ -1532,9 +1526,9 @@ const DB = {
    },
    "liberacion": "",
    "cond": [],
-   "coment": "NOVEDAD 12/09: LP realizado → línea COMPLETA.",
+   "coment": "NOVEDAD 12/09: queda pendiente una soldadura —aún no colocada— para ejecutar las tintas penetrantes y el UT. En la «Te» se debe repetir la réplica, ya que todavía no la colocaron y había trabajos en la zona.",
    "alcance": "VT del 50% del recorrido con retiro TOTAL de aislación (a cargo de APASA). RM: 3 pts (2 en trayecto de salida del 10-E-151 + 1 en unión Tee aguas arriba del 10-BO-156). RT 100% uniones a tope visibles (9 costuras de 12\") + PT complementario en las 9. Indentación/dureza en los mismos 3 pts de réplicas.",
-   "completo": true,
+   "completo": false,
    "extra": false,
    "rm_rojo": false
   },
@@ -1582,7 +1576,7 @@ const DB = {
     "AN",
     "As"
    ],
-   "coment": "As; coordinar c/ Marian · NOVEDAD 11/09: colocaron el ANDAMIO. El RX se hizo por UT (RX/UT). PENDIENTE: el LP.",
+   "coment": "As; coordinar c/ Marian · NOVEDAD 12/09: el RX se resolvió por UT (RX/UT). PENDIENTE: colocar el andamio para ejecutar las tintas penetrantes y el UT.",
    "alcance": "VT 100% del recorrido con retiro total de aislación (APASA). RM: 2 pts (1 salida del 10-BO-152 + 1 punto medio). RT 100% costuras a tope visibles (5 de 12\") + PT en las 5. Indentación en los 2 pts de réplicas.",
    "completo": false,
    "extra": false,
@@ -1621,16 +1615,16 @@ const DB = {
     },
     "RT (Rx)": {
      "req": "X (2 costuras 12\")",
-     "piz": "Realizado",
-     "raw": "✔✔",
-     "estado": "realizado"
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
     }
    },
    "liberacion": "",
    "cond": [],
-   "coment": "NOVEDAD 09/09: línea COMPLETA; tintas penetrantes realizadas al 100%.",
+   "coment": "NOVEDAD 12/09: resta ejecutar la radiografía (RX); en esas soldaduras no es posible aplicar UT.",
    "alcance": "VT del recorrido con retiro total de aislación (APASA); habrá sectores donde no se podrá retirar. RM: 2 pts (salida del 10-E-163 + ingreso al 10-BO-152, tramos verticales). RT 100% costuras a tope visibles (2 de 12\") + PT en las 2. Indentación en los pts de réplicas.",
-   "completo": true,
+   "completo": false,
    "extra": false,
    "rm_rojo": false
   },
@@ -1643,9 +1637,9 @@ const DB = {
    "ensayos": {
     "VT ext": {
      "req": "X (100%)",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "Réplicas+Durezas": {
      "req": "X (5 pts codos)",
@@ -1675,9 +1669,10 @@ const DB = {
    "liberacion": "",
    "cond": [
     "AN",
-    "As"
+    "As",
+    "H"
    ],
-   "coment": "AN; As; (INCOLOY) · NOVEDAD: se abrió (10/09).",
+   "coment": "AN; As; (INCOLOY) · NOVEDAD 12/09: inspección visual externa realizada. Para ejecutar las réplicas se requiere haulotte (condición H).",
    "alcance": "VT 100% del recorrido con retiro total de aislación (APASA). RM: 1 pt por codo de radio largo = 5 pts (Incoloy 800). RT 100% uniones a tope: 19 costuras (6 de 4\" + 13 de 8\") + PT en las 19. Indentación/dureza en los 5 pts. Pizarra anota «INCOLOY» en réplicas → definir tratamiento.",
    "completo": false,
    "extra": false,
@@ -1698,9 +1693,9 @@ const DB = {
     },
     "Réplicas+Durezas": {
      "req": "X (6 pts)",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "Indentación": {
      "req": "X",
@@ -1725,7 +1720,7 @@ const DB = {
    "cond": [
     "As"
    ],
-   "coment": "As · NOVEDAD: se abrió (10/09).",
+   "coment": "As · NOVEDAD 12/09: réplicas realizadas.",
    "alcance": "Trabajo sobre colectores de admisión desde salida del 40-E-001; retiro de aislación para VT exterior de ambos colectores; cada colector tiene 36 uniones sockolet a flexibles. RM: 3 pts equidistantes por colector = 6 pts. RT 100% de la línea principal (trayectoria 40-E-001 al reformador): ~10 costuras de 14\".",
    "completo": false,
    "extra": false,
@@ -1740,9 +1735,9 @@ const DB = {
    "ensayos": {
     "VT ext": {
      "req": "X",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "Réplicas+Durezas": {
      "req": "X",
@@ -1774,7 +1769,7 @@ const DB = {
     "AN",
     "As"
    ],
-   "coment": "AS; AN; arriba de 40-E-035 · NOVEDAD 12/09: falta PLATAFORMA para hacer los ensayos.",
+   "coment": "AS; AN; arriba de 40-E-035 · NOVEDAD 12/09: inspección visual externa realizada. Para las réplicas se debe colocar andamio.",
    "alcance": "Figura en la tabla del pto. 6 (VT/RM/Indent/LP/RX) pero NO tiene sección de detalle en el Anexo I → confirmar cantidades con APASA.",
    "completo": false,
    "extra": false,
@@ -1789,9 +1784,9 @@ const DB = {
    "ensayos": {
     "VT ext": {
      "req": "X (100%)",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "Réplicas+Durezas": {
      "req": "X (1 por codo y tramo)",
@@ -1823,7 +1818,7 @@ const DB = {
     "AN",
     "As"
    ],
-   "coment": "AN; zona central es la que importa; AS · NOVEDAD 12/09: UT realizado (en lugar de Rx), réplicas y dureza hechas.",
+   "coment": "AN; zona central es la que importa; AS · NOVEDAD 12/09: inspección visual externa realizada. UT ejecutado en lugar de Rx, réplicas y dureza realizadas.",
    "alcance": "VT completa previa al retiro de aislación. RM: 1 réplica por cada codo y tramo recto. RT: todas las uniones a tope (~10 costuras) + PT 100% de esas costuras. Dureza/indentación en pts de réplicas, intensificando en tramos rectos con deformación geométrica visible.",
    "completo": false,
    "extra": false,
@@ -1871,7 +1866,7 @@ const DB = {
    "cond": [
     "As"
    ],
-   "coment": "As; desde la plataforma y el equipo se puede · NOVEDAD: lo abrieron (10/09).",
+   "coment": "As; desde la plataforma y el equipo se puede · NOVEDAD 12/09: se desmonta hoy 12/09; con la línea desmontada se podrán ejecutar las réplicas.",
    "alcance": "VT 100% de la longitud, previo retiro de aislación (APASA). RM: 1 pt por codo y tramo recto. RT: totalidad de uniones a tope (~11 costuras) + PT en las 11. Dureza/indentación en pts de réplicas, intensificar donde haya deformación.",
    "completo": false,
    "extra": false,
@@ -2033,9 +2028,9 @@ const DB = {
    "ensayos": {
     "VT ext": {
      "req": "X",
-     "piz": "A realizar",
-     "raw": "✔",
-     "estado": "a_realizar"
+     "piz": "Realizado",
+     "raw": "✔✔",
+     "estado": "realizado"
     },
     "Réplicas+Durezas": {
      "req": "X",
