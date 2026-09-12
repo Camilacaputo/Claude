@@ -219,7 +219,7 @@ footer{color:var(--muted);font-size:12px;margin-top:26px;border-top:1px solid va
     </div>
     <div class="meta">
       <span>Actualizado: <b id="updDate">—</b></span>
-      <span>Publicado: <b>12/09 11:44 hs</b></span>
+      <span>Publicado: <b>12/09 11:52 hs</b></span>
       <span>Datos base: pizarras 06/09 + novedades al día</span>
       <span>Ventana de parada: <b>02/09 – 28/09</b> · L a V, 7:30–16:30 (ext. 19:30)</span>
       <span id="dbState"></span>
@@ -878,6 +878,12 @@ const DB = {
      "piz": "Realizado",
      "raw": "✔✔",
      "estado": "realizado"
+    },
+    "VT int": {
+     "req": "X (spot)",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar"
     }
    },
    "liberacion": "07/09",
@@ -886,9 +892,9 @@ const DB = {
     "As",
     "IP"
    ],
-   "coment": "As; IP; sacar tapones; VT ext: la junta de expansión está deteriorada · NOVEDAD 12/09: inspección visual externa realizada.",
+   "coment": "As; IP; sacar tapones; VT ext: la junta de expansión está deteriorada · NOVEDAD 12/09: inspección visual externa realizada. La inspección visual interna queda pendiente, sujeta a la apertura del equipo.",
    "alcance": "Condicionado al desmontaje de la tapa superior: VT int spot con videoscopio de tubos del intercambiador superior + evaluación de juntas, internos de cabezales, placas porta-tubos y tapas de cierre.",
-   "completo": true,
+   "completo": false,
    "extra": false,
    "rm_rojo": false
   },
@@ -1540,9 +1546,9 @@ const DB = {
     },
     "RT (Rx)": {
      "req": "X (5 costuras 12\")",
-     "piz": "Realizado",
-     "raw": "✔✔",
-     "estado": "realizado",
+     "piz": "A realizar",
+     "raw": "✔",
+     "estado": "a_realizar",
      "label": "RX/UT"
     }
    },
@@ -1551,7 +1557,7 @@ const DB = {
     "AN",
     "As"
    ],
-   "coment": "As; coordinar c/ Marian · NOVEDAD 12/09: el RX se resolvió por UT (RX/UT). PENDIENTE: colocar el andamio para ejecutar las tintas penetrantes y el UT.",
+   "coment": "As; coordinar c/ Marian · NOVEDAD 12/09: el volumétrico se resuelve por UT (RX/UT) y queda pendiente, al igual que las tintas penetrantes. Se requiere colocar el andamio para ejecutar ambos ensayos.",
    "alcance": "VT 100% del recorrido con retiro total de aislación (APASA). RM: 2 pts (1 salida del 10-BO-152 + 1 punto medio). RT 100% costuras a tope visibles (5 de 12\") + PT en las 5. Indentación en los 2 pts de réplicas.",
    "completo": false,
    "extra": false,
