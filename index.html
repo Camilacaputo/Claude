@@ -278,8 +278,15 @@ footer{color:var(--muted);font-size:12px;margin-top:26px;border-top:1px solid va
   </section>
 
   <section class="blk">
-    <h2>Consultas a definir con el usuario técnico (Enzo) <small>registrar acá cada respuesta — actualizado al 06/09</small></h2>
-    <div class="tbl-wrap"><table id="tEnzo"></table></div>
+    <details class="fold">
+      <summary>
+        <span class="fold-h">Consultas a definir con Enzo <span id="cntEnzo" style="font-weight:400"></span></span>
+        <span class="fold-hint">tocar para desplegar</span>
+      </summary>
+      <div class="fold-body">
+        <div class="tbl-wrap"><table id="tEnzo"></table></div>
+      </div>
+    </details>
   </section>
 
   <div class="legend">
@@ -3238,5 +3245,6 @@ document.getElementById("tCond").innerHTML=ch+"</tbody>";
 /* ---------- consultas a Enzo ---------- */
 document.getElementById("tEnzo").innerHTML="<thead><tr><th style='width:170px'>Ítem</th><th>Consulta</th><th style='width:200px'>Respuesta / definición</th></tr></thead><tbody>"+
  (DB.consultas||[]).map((c,i)=>`<tr><td><span class="duda-n">${String(i+1).padStart(2,"0")}</span> · <b class="mono" style="font-size:12px">${esc(c.item)}</b></td><td>${esc(c.tema)}</td><td style="color:var(--muted)">pendiente</td></tr>`).join("")+"</tbody>";
+{const _ce=document.getElementById("cntEnzo"); if(_ce) _ce.textContent="("+(DB.consultas||[]).length+")";}
 
 </script>
